@@ -1,0 +1,116 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.home {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+h2 {
+  padding-top: 0.5em;
+  margin: 0 0 0.5em;
+  color: rgba(0, 0, 0, 0.88);
+  font-weight: 700;
+  font-size: 27px;
+  line-height: 1.3333333333333333;
+  text-align: center;
+}
+
+.inputTask {
+  padding: 10px;
+  margin-bottom: 0.8em;
+  outline: none;
+  width: 100%;
+}
+
+.inputWorker {
+  margin-bottom: 0.8em;
+  outline: none;
+  width: 100%;
+  height: 100%;
+}
+
+.EditTask {
+  padding: 10px;
+  outline: none;
+  width: 100%;
+}
+
+button {
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.cards {
+  border: 1px solid #cacaca;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 0em 1em;
+  width: 100%;
+  height: 100%;
+  padding: 1em;
+}
+
+.kiri {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #cacaca;
+  border-radius: 10px;
+  width: 250px;
+  padding: 1.5em 1em 1em;
+  transition: .2s;
+}
+
+.kiri:hover {
+  border: 1px solid #79a7e9;
+}
+
+h3 {
+  margin: 0 0 0.7em;
+  text-align: center;
+}
+
+.kiri button:last-child {
+  margin-top: 0.8em;
+}
+
+/* ////////////// */
+/* Ant Customize */
+/* //////////// */
+.ant-card {
+  margin-bottom: 16px;
+}
+
+.ant-card-bordered {
+  border: 1px solid #dcdcdc;
+  transition: 0.3s;
+}
+
+.ant-card-bordered:hover {
+  border: 1px solid #1677ff;
+}
+
+.ant-progress {
+  /* position: absolute; */
+}
+

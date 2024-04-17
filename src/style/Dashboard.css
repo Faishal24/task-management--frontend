@@ -1,0 +1,41 @@
+.wrapper {
+    display: flex;
+    /* gap: 2em; */
+    justify-content: space-between;
+}
+
+.cardDetail {
+    display: flex;
+    gap: 2em;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.tugasKanan {
+    width: fit-content;
+}
+
+.tabelKanan td:first-child {
+    font-weight: bold;
+}
+
+td {
+    padding: .5em .6em .5em 0;
+    line-height: 1.7em;
+}
+
+.tugasKiri {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.due table {
+    text-align: left;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
