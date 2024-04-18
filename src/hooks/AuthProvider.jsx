@@ -7,11 +7,11 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("site") || "");
-  const [msg, setMsg] = useState("")
+  const [msg, setMsg] = useState("");
   const navigate = useNavigate();
   const loginAction = async (data) => {
     try {
-      console.log("atas")
+      console.log("atas");
       const response = await axios.post(
         "http://localhost:5000/auth/login",
         data,
@@ -21,7 +21,7 @@ const AuthProvider = ({ children }) => {
           },
         }
       );
-      
+
       const res = await response.data;
       if (res && res.success) {
         const userData = res.data;
@@ -32,8 +32,7 @@ const AuthProvider = ({ children }) => {
         return;
       }
     } catch (err) {
-      setMsg(err.response.data)
-      // console.error(err.response.data);
+      setMsg(err.response.data);
     }
   };
 
@@ -45,9 +44,11 @@ const AuthProvider = ({ children }) => {
   };
 
   const message = () => {
-    console.log(msg)
-    document.querySelector(".alert").classList.add("show");
-  }
+    console.log(msg);
+    if(msg.success == false) {
+      document.querySelector(".alert").classList.add("show");
+    }
+  };
 
   return (
     <AuthContext.Provider value={{ token, user, loginAction, logOut, message }}>
