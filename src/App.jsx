@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import AuthProvider from "./hooks/AuthProvider";
 import PrivateRoute from "./pages/PrivateRoute";
 
+
 function App() {
   return (
     <BrowserRouter>

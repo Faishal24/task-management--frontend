@@ -11,7 +11,6 @@ const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const loginAction = async (data) => {
     try {
-      console.log("atas");
       const response = await axios.post(
         "http://localhost:5000/auth/login",
         data,
@@ -45,7 +44,7 @@ const AuthProvider = ({ children }) => {
 
   const message = () => {
     console.log(msg);
-    if(msg.success == false) {
+    if (msg.success == false) {
       document.querySelector(".alert").classList.add("show");
     }
   };

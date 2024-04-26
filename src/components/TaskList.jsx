@@ -21,7 +21,7 @@ const TaskList = () => {
   const [tasks, setTasks] = useState([]);
   const [edit, setEdit] = useState(false);
 
-  ////////////////////////
+  ///////// Modal /////////
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = (task) => {
     setSelectedTask(task);
@@ -31,7 +31,7 @@ const TaskList = () => {
     setEdit(false);
     setIsModalOpen(false);
   };
-  ////////////////////////
+  /////////////////////////
 
   useEffect(() => {
     axios
@@ -150,14 +150,14 @@ const TaskList = () => {
               steps={task.tasks.length}
               percent={
                 task.tasks.length === 0
-                ? 0
-                :
-              (
-                (task.tasks.filter((task) => task.isDone === true).length /
-                  task.tasks.length) *
-                100
-              ).toFixed(0)
-            }
+                  ? 0
+                  : (
+                      (task.tasks.filter((task) => task.isDone === true)
+                        .length /
+                        task.tasks.length) *
+                      100
+                    ).toFixed(0)
+              }
               size={20}
             />
           </Card>
@@ -169,17 +169,23 @@ const TaskList = () => {
         onCancel={handleCancel}
         footer={[
           <Space>
-            <Button key="back" onClick={handleEdit}>
-              Edit
-            </Button>
             {edit ? (
-              <Button type="primary" onClick={handleSave}>
-                Save
-              </Button>
+              <>
+                <Button key="back" onClick={handleEdit}>
+                  Kembali
+                </Button>
+                <Button onClick={handleSave}>Simpan</Button>
+              </>
             ) : (
-              <Button type="primary" danger onClick={handleDelete}>
-                Delete
-              </Button>
+              <>
+                <Button danger onClick={handleDelete}>
+                  Hapus Karyawan
+                </Button>
+                <Button key="back" onClick={handleEdit}>
+                  Ubah
+                </Button>
+                <Button type="primary">Detail Tugas</Button>
+              </>
             )}
           </Space>,
         ]}

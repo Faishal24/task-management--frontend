@@ -90,7 +90,7 @@ const Home = () => {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/tugas" element={<Task />} />
-            <Route path="/nav3" element={<div>3</div>} />
+            <Route path="/nav3" element={<div>Belum Selesai</div>} />
           </Routes>
         </Content>
       </Layout>
