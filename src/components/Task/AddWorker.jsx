@@ -46,7 +46,7 @@ const AddWorker = () => {
           placeholder="Masukkan nama..."
           onChange={(e) => setKaryawan(e.target.value)}
         />
-        <Button type="primary" onClick={handleAddWorker}>
+        <Button className="btnAdd" type="primary" onClick={handleAddWorker}>
           Tambah
         </Button>
       </Space>

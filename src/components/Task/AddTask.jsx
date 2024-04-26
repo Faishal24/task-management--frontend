@@ -67,13 +67,14 @@ const AddTask = () => {
         <Input
           className="inputTask"
           type="text"
-          placeholder="Masukkan nama tugas..."
+          placeholder="Masukkan nama tugas"
           onChange={(e) => setTask(e.target.value)}
         />
 
         <DatePicker
           className="inputTask"
           format={"DD/MM/YYYY"}
+          placeholder="Tanggal tenggat"
           onChange={(date, dateString) => handleDateChange(date, dateString)}
         />
 
@@ -87,7 +88,7 @@ const AddTask = () => {
           }))}
         />
 
-        <Button type="primary" onClick={handleAdd}>
+        <Button className="btnAdd" type="primary" onClick={handleAdd}>
           Tambah
         </Button>
       </Space>

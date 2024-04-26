@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  UserOutlined,
   DownloadOutlined,
   DashboardOutlined,
   FolderOpenOutlined,
@@ -11,6 +12,7 @@ import Task from "./Task";
 import BtnLogout from "../components/BtnLogout";
 import { Routes, Route, Link } from "react-router-dom";
 import Dashboard from "./Dashboard";
+import Worker from "./Worker";
 
 const { Header, Sider, Content } = Layout;
 
@@ -45,8 +47,11 @@ const Home = () => {
           <Menu.Item key="3" icon={<FolderOpenOutlined />}>
             <Link to="/tugas">Tugas</Link>
           </Menu.Item>
-          <Menu.Item key="4" icon={<DownloadOutlined />}>
-            <Link to="/nav3">Laporan</Link>
+          <Menu.Item key="4" icon={<UserOutlined />}>
+            <Link to="/anggota">Anggota</Link>
+          </Menu.Item>
+          <Menu.Item key="5" icon={<DownloadOutlined />}>
+            <Link to="/laporan">Laporan</Link>
           </Menu.Item>
         </Menu>
       </Sider>
@@ -90,7 +95,8 @@ const Home = () => {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/tugas" element={<Task />} />
-            <Route path="/nav3" element={<div>Belum Selesai</div>} />
+            <Route path="/anggota" element={<Worker/>} />
+            <Route path="/laporan" element={<div>Belum Selesai</div>} />
           </Routes>
         </Content>
       </Layout>

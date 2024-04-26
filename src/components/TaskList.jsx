@@ -11,6 +11,7 @@ import {
   Divider,
   ConfigProvider,
   Progress,
+  Popconfirm,
 } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 
@@ -174,13 +175,24 @@ const TaskList = () => {
                 <Button key="back" onClick={handleEdit}>
                   Kembali
                 </Button>
-                <Button onClick={handleSave}>Simpan</Button>
+                <Button type="primary" onClick={handleSave}>
+                  Simpan
+                </Button>
               </>
             ) : (
               <>
-                <Button danger onClick={handleDelete}>
-                  Hapus Karyawan
-                </Button>
+                <Popconfirm
+                  title="Delete the task"
+                  description="Are you sure to delete this task?"
+                  onConfirm={handleDelete}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <Button danger>
+                    Hapus Karyawan
+                  </Button>
+                </Popconfirm>
+
                 <Button key="back" onClick={handleEdit}>
                   Ubah
                 </Button>
