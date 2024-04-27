@@ -5,7 +5,7 @@ import {Input, Button, Space, Typography } from "antd";
 const {Title} = Typography
 
 const AddWorker = () => {
-  const [karyawan, setKaryawan] = useState("");
+  const [karyawan, setKaryawan] = useState([]);
   const [selectedWorker, setselectedWorker] = useState("");
 
   const handleAddWorker = () => {
@@ -36,6 +36,11 @@ const AddWorker = () => {
       }
     });
   };
+
+  const test = () => {
+    console.log(karyawan)
+  }
+
   return (
     <>
       <Title level={3}>Tambah Karyawan</Title>

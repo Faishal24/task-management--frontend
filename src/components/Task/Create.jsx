@@ -7,8 +7,6 @@ const Create = () => {
   return (
     <div className="kiri">
       <AddTask />
-      <Divider />
-      <AddWorker />
     </div>
   );
 };

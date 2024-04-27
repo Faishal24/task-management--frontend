@@ -25,7 +25,6 @@ const columns = [
 ];
 
 const DueTask = () => {
-  // Test //
   useEffect(() => {
     axios
       .get("http://localhost:5000/get")

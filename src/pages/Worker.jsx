@@ -1,5 +1,8 @@
 import React from "react";
 import { Typography } from "antd";
+import AddWorker from "../components/Task/AddWorker";
+import WorkerList from "../components/Worker/WorkerList";
+import "../style/Worker.css"
 
 const { Title } = Typography;
 
@@ -17,6 +20,13 @@ const Worker = () => {
       >
         Daftar Karyawan
       </Title>
+
+      <div className="container">
+        <div className="kiri">
+          <AddWorker />
+        </div>
+          <WorkerList />
+      </div>
     </div>
   );
 };

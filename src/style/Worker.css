@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    
+}
+
+.table {
+  border: 1px solid #cacaca;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 0em 1em;
+  width: 100%;
+  height: 100%;
+  padding: 1em;
+}
