@@ -5,7 +5,14 @@ import { Input, Button, Select, Space, Typography } from "antd";
 const { Title } = Typography;
 
 const AddWorker = () => {
-  const [karyawan, setKaryawan] = useState([]);
+  const [karyawan, setKaryawan] = useState({
+    name: "",
+    age: "",
+    address: "",
+    gender: "",
+    phone: "",
+    devision: "",
+  });
   const [selectedWorker, setselectedWorker] = useState("");
   const devisi = [
     "pemasaran",
@@ -16,37 +23,26 @@ const AddWorker = () => {
     "hubungan masyarakat",
   ];
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setKaryawan((prevKaryawan) => ({
+      ...prevKaryawan,
+      [name]: value,
+    }));
+  };
+
   const handleAddWorker = () => {
-    const newWorker = {
-      name: karyawan,
-    };
-
-    axios.get(`http://localhost:5000/get/`).then((response) => {
-      const workers = response.data;
-
-      const worker = Object.values(workers).find(
-        (worker) => worker.name == selectedWorker
-      );
-      console.log(workers);
-
-      if (!worker) {
-        console.log("Karyawan Belum Ada");
-        axios
-          .post(`http://localhost:5000/add`, newWorker)
-          .then((result) => {
-            console.log("Berhasil ditambahkan");
-            console.log(result);
-            location.reload();
-          })
-          .catch((err) => console.error("Error adding worker:", err));
-      } else {
-        console.log("Karyawan Sudah Ada");
-      }
-    });
+    axios
+      .post("http://localhost:5000/add", karyawan)
+      .then((result) => {
+        console.log("Berhasil");
+        location.reload();
+      })
+      .catch((err) => console.log(err));
   };
 
   const test = () => {
-    console.log(devisi);
+    console.log(karyawan);
   };
 
   return (
@@ -58,31 +54,40 @@ const AddWorker = () => {
           type="text"
           placeholder="Nama"
           name="name"
-          onChange={(e) => setKaryawan(e.target.value)}
+          value={karyawan.name}
+          onChange={handleInputChange}
         />
         <Input
           className="inputWorker"
           type="int"
           placeholder="Umur"
           name="age"
-          onChange={(e) => setKaryawan(e.target.value)}
+          value={karyawan.age}
+          onChange={handleInputChange}
         />
         <Input
           className="inputWorker"
           type="text"
           placeholder="Alamat"
           name="address"
-          onChange={(e) => setKaryawan(e.target.value)}
+          value={karyawan.address}
+          onChange={handleInputChange}
         />
         <Select
           className="inputWorker"
           type="text"
-          placeholder="Jenis Kelamin"
           name="gender"
-          onChange={(e) => setKaryawan(e.target.value)}
+          placeholder="Jenis Kelamin"
+          value={karyawan.gender}
+          onChange={(value) =>
+            setKaryawan((prevKaryawan) => ({
+              ...prevKaryawan,
+              gender: value,
+            }))
+          }
           options={[
-            {value: "male", label: "Laki-laki"},
-            {value: "female", label: "Perempuan"}
+            { value: "male", label: "Laki-laki" },
+            { value: "female", label: "Perempuan" },
           ]}
         />
         <Input
@@ -90,18 +95,25 @@ const AddWorker = () => {
           type="text"
           placeholder="No. Telepon"
           name="phone"
-          onChange={(e) => setKaryawan(e.target.value)}
+          value={karyawan.phone}
+          onChange={handleInputChange}
         />
         <Select
           className="inputWorker"
-          defaultValue="Pilih devisi"
-          onChange={(e) => setKaryawan(e.target.value)}
+          placeholder="Pilih devisi"
+          value={karyawan.devision}
+          onChange={(value) =>
+            setKaryawan((prevKaryawan) => ({
+              ...prevKaryawan,
+              devision: value,
+            }))
+          }
           options={devisi.map((dev) => ({
             value: dev,
             label: dev,
           }))}
         />
-        <Button className="btnAdd" type="primary" onClick={test}>
+        <Button className="btnAdd" type="primary" onClick={handleAddWorker}>
           Tambah
         </Button>
       </Space>
