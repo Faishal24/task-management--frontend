@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Space, Table, Tag, Popconfirm } from "antd";
+import { ConfigProvider, Space, Table, Tag, Popconfirm } from "antd";
 import axios from "axios";
 
 const WorkerList = () => {
@@ -9,18 +9,18 @@ const WorkerList = () => {
     index: index + 1,
   }));
 
-  const handleDelete = () => {
+  const handleDelete = (_id) => {
     axios
-      .delete(`http://localhost:5000/delete/${selectedTask._id}`)
+      .delete(`http://localhost:5000/delete/${_id}`)
       .then((result) => {
         location.reload();
       })
       .catch((err) => console.log("Error", err));
   };
 
-  const test = (test) => {
-    console.log(test)
-  }
+  const test = (_id) => {
+    console.log(_id);
+  };
 
   const columns = [
     {
@@ -31,6 +31,8 @@ const WorkerList = () => {
       title: "Nama",
       dataIndex: "name",
       key: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
+      sortDirections: ["ascend"],
       render: (text) => <a>{text}</a>,
     },
     {
@@ -58,6 +60,35 @@ const WorkerList = () => {
       title: "Divisi",
       key: "devision",
       dataIndex: "devision",
+      sorter: (a, b) => a.devision.localeCompare(b.devision),
+      sortDirections: ["ascend"],
+      filters: [
+        {
+          text: "riset",
+          value: "riset",
+        },
+        {
+          text: "keuangan",
+          value: "keuangan",
+        },
+        {
+          text: "hubungan masyarakat",
+          value: "hubungan masyarakat",
+        },
+        {
+          text: "hubungan petani",
+          value: "hubungan petani",
+        },
+        {
+          text: "pemasaran",
+          value: "pemasaran",
+        },
+        {
+          text: "produksi",
+          value: "produksi",
+        },
+      ],
+      onFilter: (value, record) => record.devision.indexOf(value) === 0,
       render: (_, { devision }) => {
         let color = "magenta"; // Default color
         if (devision === "pemasaran") {
@@ -77,21 +108,19 @@ const WorkerList = () => {
       },
     },
     {
-      title: "Action",
+      title: "Aksi",
       key: "action",
-      render: (_) => (
+      render: (record) => (
         <Space size="middle">
           <Popconfirm
-                  title="Delete the task"
-                  description="Are you sure to delete this task?"
-                  onConfirm={() => test(task)}
-                  okText="Yes"
-                  cancelText="No"
-                >
-                  <a style={{color: "#fa541c"}}>
-                    Hapus
-                  </a>
-                </Popconfirm>
+            title="Delete the task"
+            description="Are you sure to delete this task?"
+            onConfirm={() => handleDelete(record._id)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <a style={{ color: "#fa541c" }}>Hapus</a>
+          </Popconfirm>
         </Space>
       ),
     },
@@ -102,15 +131,28 @@ const WorkerList = () => {
       .get("http://localhost:5000/get")
       .then((result) => setWorker(result.data));
   });
-  
 
   return (
     <div className="table">
-      <Table
-        columns={columns}
-        dataSource={workerWithIndex}
-        pagination={{ position: [] }}
-      />
+      <ConfigProvider
+        theme={{
+          components: {
+            Table: {
+              // cellFontSize: 15,
+              cellPaddingInline: 25,
+            },
+          },
+        }}
+      >
+        <Table
+          columns={columns}
+          dataSource={workerWithIndex}
+          pagination={{ position: [] }}
+          showSorterTooltip={{
+            target: "sorter-icon",
+          }}
+        />
+      </ConfigProvider>
     </div>
   );
 };

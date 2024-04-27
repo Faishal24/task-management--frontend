@@ -10,7 +10,7 @@ const { Title } = Typography;
 const Worker = () => {
   return (
     <>
-      <div className="title">
+      {/* <div className="title">
         <Title
           level={2}
           style={{
@@ -23,7 +23,7 @@ const Worker = () => {
           Daftar Karyawan
         </Title>
         <DateComponent />
-      </div>
+      </div> */}
       <div className="container">
         <div className="kiri">
           <AddWorker />
