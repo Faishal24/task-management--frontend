@@ -3,31 +3,11 @@ import { Typography } from "antd";
 import "../style/Dashboard.css";
 import List from "../components/Dashboard/List";
 import Detail from "../components/Dashboard/Detail";
+import DateComponent from "../components/Misc/DateComponent";
 
 const { Title } = Typography;
 
 const Dashboard = () => {
-  // Tanggal
-  const d = new Date();
-  const day = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
-  const month = [
-    "Januari",
-    "Februari",
-    "Maret",
-    "April",
-    "Mei",
-    "Juni",
-    "Juli",
-    "Agustus",
-    "September",
-    "Oktober",
-    "November",
-    "December",
-  ];
-  const date = `${day[d.getDay()]}, ${d.getDate()} ${
-    month[d.getMonth()]
-  } ${d.getFullYear()}`;
-
   return (
     <div className="dashboard">
       <div className="title">
@@ -42,15 +22,7 @@ const Dashboard = () => {
         >
           Ringkasan
         </Title>
-        <Title
-          level={5}
-          style={{ 
-            marginTop: "0px", 
-            paddingBottom: "0px", 
-            opacity: "50%" }}
-        >
-          {date}
-        </Title>
+        <DateComponent/>
       </div>
       <div className="wrapper">
         <Detail />

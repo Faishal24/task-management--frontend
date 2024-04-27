@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Space, Table, Tag } from "antd";
+import { Button, Space, Table, Tag, Popconfirm } from "antd";
 import axios from "axios";
 
 const WorkerList = () => {
@@ -8,6 +8,19 @@ const WorkerList = () => {
     ...item,
     index: index + 1,
   }));
+
+  const handleDelete = () => {
+    axios
+      .delete(`http://localhost:5000/delete/${selectedTask._id}`)
+      .then((result) => {
+        location.reload();
+      })
+      .catch((err) => console.log("Error", err));
+  };
+
+  const test = (test) => {
+    console.log(test)
+  }
 
   const columns = [
     {
@@ -68,7 +81,17 @@ const WorkerList = () => {
       key: "action",
       render: (_) => (
         <Space size="middle">
-          <a onClick={() => console.log(workerWithIndex)}>Delete</a>
+          <Popconfirm
+                  title="Delete the task"
+                  description="Are you sure to delete this task?"
+                  onConfirm={() => test(task)}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <a style={{color: "#fa541c"}}>
+                    Hapus
+                  </a>
+                </Popconfirm>
         </Space>
       ),
     },
@@ -79,6 +102,7 @@ const WorkerList = () => {
       .get("http://localhost:5000/get")
       .then((result) => setWorker(result.data));
   });
+  
 
   return (
     <div className="table">
