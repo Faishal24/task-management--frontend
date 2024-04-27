@@ -181,7 +181,7 @@ const TaskList = () => {
               </>
             ) : (
               <>
-                <Popconfirm
+                {/* <Popconfirm
                   title="Delete the task"
                   description="Are you sure to delete this task?"
                   onConfirm={handleDelete}
@@ -191,7 +191,7 @@ const TaskList = () => {
                   <Button danger>
                     Hapus Karyawan
                   </Button>
-                </Popconfirm>
+                </Popconfirm> */}
 
                 <Button key="back" onClick={handleEdit}>
                   Ubah

@@ -118,6 +118,7 @@ const WorkerList = () => {
             onConfirm={() => handleDelete(record._id)}
             okText="Yes"
             cancelText="No"
+            placement="left"
           >
             <a style={{ color: "#fa541c" }}>Hapus</a>
           </Popconfirm>
