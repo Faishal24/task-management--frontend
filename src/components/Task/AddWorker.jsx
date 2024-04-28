@@ -98,6 +98,14 @@ const AddWorker = () => {
           value={karyawan.phone}
           onChange={handleInputChange}
         />
+        <Input
+          className="inputWorker"
+          type="email"
+          placeholder="Email"
+          name="email"
+          value={karyawan.email}
+          onChange={handleInputChange}
+        />
         <Select
           className="inputWorker"
           placeholder="Pilih devisi"

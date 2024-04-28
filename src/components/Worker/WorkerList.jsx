@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { ConfigProvider, Space, Table, Tag, Popconfirm } from "antd";
+import { Empty, Space, Table, Tag, Popconfirm, Skeleton } from "antd";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import axios from "axios";
 
-const WorkerList = () => {
+const WorkerList = ({showModal}) => {
   const [worker, setWorker] = useState([]);
   const workerWithIndex = worker.map((item, index) => ({
     ...item,
@@ -16,10 +17,6 @@ const WorkerList = () => {
         location.reload();
       })
       .catch((err) => console.log("Error", err));
-  };
-
-  const test = (_id) => {
-    console.log(_id);
   };
 
   const columns = [
@@ -57,34 +54,39 @@ const WorkerList = () => {
       key: "phone",
     },
     {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+    },
+    {
       title: "Divisi",
       key: "devision",
       dataIndex: "devision",
       sorter: (a, b) => a.devision.localeCompare(b.devision),
-      sortDirections: ["ascend"],
+      sortDirections: ["ascend", "descend"],
       filters: [
         {
-          text: "riset",
+          text: "Riset",
           value: "riset",
         },
         {
-          text: "keuangan",
+          text: "Keuangan",
           value: "keuangan",
         },
         {
-          text: "hubungan masyarakat",
+          text: "Hubungan Masyarakat",
           value: "hubungan masyarakat",
         },
         {
-          text: "hubungan petani",
+          text: "Hubungan Petani",
           value: "hubungan petani",
         },
         {
-          text: "pemasaran",
+          text: "Pemasaran",
           value: "pemasaran",
         },
         {
-          text: "produksi",
+          text: "Produksi",
           value: "produksi",
         },
       ],
@@ -120,40 +122,62 @@ const WorkerList = () => {
             cancelText="No"
             placement="left"
           >
-            <a style={{ color: "#fa541c" }}>Hapus</a>
+            <Space direction="vertical">
+              <a><DeleteOutlined style={{ color: "#fa541c", fontSize: "18px" }} /></a>
+            </Space>
           </Popconfirm>
+          <a>
+            <EditOutlined 
+              style={{ color: "#4096ff", fontSize: "18px" }} 
+              onClick={() => showModal(record)}/>
+          </a>
         </Space>
       ),
     },
   ];
 
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/get")
-      .then((result) => setWorker(result.data));
-  });
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get("http://localhost:5000/get");
+        setWorker(response.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="table">
-      <ConfigProvider
-        theme={{
-          components: {
-            Table: {
-              // cellFontSize: 15,
-              cellPaddingInline: 25,
-            },
-          },
+      {/* <Skeleton loading={loading} active> */}
+      <Table
+        columns={columns}
+        dataSource={workerWithIndex}
+        pagination={false}
+        showSorterTooltip={{
+          target: "sorter-icon",
         }}
-      >
-        <Table
-          columns={columns}
-          dataSource={workerWithIndex}
-          pagination={{ position: [] }}
-          showSorterTooltip={{
-            target: "sorter-icon",
-          }}
-        />
-      </ConfigProvider>
+        locale={{
+          emptyText: loading ? (
+            <Skeleton 
+              active
+              title={false} 
+              paragraph={{ rows: 15 }} 
+              style={{
+                lineHeight: "2em"
+              }}  
+            />
+          ) : (
+            <Empty />
+          ),
+        }}
+      />
+      {/* </Skeleton> */}
     </div>
   );
 };
