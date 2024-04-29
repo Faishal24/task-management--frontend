@@ -1,14 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { Empty, Space, Table, Tag, Popconfirm, Skeleton } from "antd";
+import { Empty, Space, Table, Tag, Popconfirm, Skeleton, Modal, Input, InputNumber, Button, Typography } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import axios from "axios";
 
-const WorkerList = ({showModal}) => {
+const {Text} = Typography
+
+const WorkerList = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [worker, setWorker] = useState([]);
   const workerWithIndex = worker.map((item, index) => ({
     ...item,
     index: index + 1,
   }));
+
+  ///////////// Modal /////////////
+  const showModal = (record) => {
+    setIsModalOpen(true);
+    setInput(record)
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const [input, setInput] = useState([]);
+
+  const handleChange = (e, key) => {
+    const { value } = e.target;
+    setInput((prevData) => ({
+      ...prevData,
+      [key]: value,
+    }));
+  };
+  ////////////////////////////////
 
   const handleDelete = (_id) => {
     axios
@@ -123,13 +149,18 @@ const WorkerList = ({showModal}) => {
             placement="left"
           >
             <Space direction="vertical">
-              <a><DeleteOutlined style={{ color: "#fa541c", fontSize: "18px" }} /></a>
+              <a>
+                <DeleteOutlined
+                  style={{ color: "#fa541c", fontSize: "18px" }}
+                />
+              </a>
             </Space>
           </Popconfirm>
           <a>
-            <EditOutlined 
-              style={{ color: "#4096ff", fontSize: "18px" }} 
-              onClick={() => showModal(record)}/>
+            <EditOutlined
+              style={{ color: "#4096ff", fontSize: "18px" }}
+              onClick={() => showModal(record)}
+            />
           </a>
         </Space>
       ),
@@ -153,32 +184,110 @@ const WorkerList = ({showModal}) => {
   }, []);
 
   return (
-    <div className="table">
-      {/* <Skeleton loading={loading} active> */}
-      <Table
-        columns={columns}
-        dataSource={workerWithIndex}
-        pagination={false}
-        showSorterTooltip={{
-          target: "sorter-icon",
-        }}
-        locale={{
-          emptyText: loading ? (
-            <Skeleton 
-              active
-              title={false} 
-              paragraph={{ rows: 15 }} 
-              style={{
-                lineHeight: "2em"
-              }}  
-            />
-          ) : (
-            <Empty />
-          ),
-        }}
-      />
-      {/* </Skeleton> */}
-    </div>
+    <>
+      <div className="table">
+        {/* <Skeleton loading={loading} active> */}
+        <Table
+          columns={columns}
+          dataSource={workerWithIndex}
+          pagination={false}
+          showSorterTooltip={{
+            target: "sorter-icon",
+          }}
+          locale={{
+            emptyText: loading ? (
+              <Skeleton
+                active
+                title={false}
+                paragraph={{ rows: 15 }}
+                style={{
+                  lineHeight: "2em",
+                }}
+              />
+            ) : (
+              <Empty />
+            ),
+          }}
+        />
+      </div>
+      <Modal
+        title="Ubah Detail Karyawan"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <Space direction="horizontal" size="middle" style={{marginTop:"1em"}}>
+          <Space direction="vertical" size={26}>
+            <Text>Nama</Text>
+            <Text>Umur</Text>
+            <Text>Jenis Kelamin</Text>
+            <Text>Alamat</Text>
+            <Text>No. Telepon</Text>
+            <Text>Email</Text>
+            <Text>Devisi</Text>
+          </Space>
+          <Space direction="vertical" style={{ width: "100%" }} size="middle">
+            <Space direction="horizontal">
+              <Input
+                style={{ width: "205%" }}
+                placeholder={input.name}
+                value={isModalOpen == false ? null : input.name}
+                onChange={(e) => handleChange(e, "name")}
+              />
+            </Space>
+
+            <Space direction="horizontal">
+              <InputNumber 
+              style={{ width: "205%" }}
+              placeholder={input.age} 
+              value={isModalOpen == false ? null : input.age}
+              onChange={(e) => handleChange(e, "age")}/>
+            </Space>
+
+            <Space direction="horizontal">
+              <Input 
+              style={{ width: "205%" }}
+              placeholder={input.address} 
+              value={isModalOpen == false ? null : input.address}
+              onChange={(e) => handleChange(e, "address")}/>
+            </Space>
+
+            <Space direction="horizontal">
+              <Input 
+              style={{ width: "205%" }}
+              placeholder={input.gender} 
+              value={isModalOpen == false ? null : input.gender}
+              onChange={(e) => handleChange(e, "gender")}/>
+            </Space>
+
+            <Space direction="horizontal">
+              <Input 
+              style={{ width: "205%" }}
+              placeholder={input.phone} 
+              value={isModalOpen == false ? null : input.phone}
+              onChange={(e) => handleChange(e, "phone")}/>
+            </Space>
+
+            <Space direction="horizontal">
+              <Input 
+              style={{ width: "205%" }}
+              placeholder={input.email} 
+              value={isModalOpen == false ? null : input.email}
+              onChange={(e) => handleChange(e, "email")}/>
+            </Space>
+
+            <Space direction="horizontal">
+              <Input 
+              style={{ width: "205%" }}
+              placeholder={input.devision} 
+              value={isModalOpen == false ? null : input.devision}
+              onChange={(e) => handleChange(e, "devision")}/>
+            </Space>
+          </Space>
+          {/* <Button onClick={() => console.log(input)}>Click Me</Button> */}
+        </Space>
+      </Modal>
+    </>
   );
 };
 

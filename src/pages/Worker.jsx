@@ -1,29 +1,13 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Typography } from "antd";
 import AddWorker from "../components/Task/AddWorker";
 import WorkerList from "../components/Worker/WorkerList";
 import "../style/Worker.css";
 import DateComponent from "../components/Misc/DateComponent";
-import ModalComponent from "../components/Misc/ModalComponent";
 
 const { Title } = Typography;
 
 const Worker = () => {
-  const [ isModalOpen, setIsModalOpen ] = useState(false);
-  const [ selectedWorker, setSelectedWorker] = useState([])
-
-  const showModal = (record) => {
-    setSelectedWorker(record)
-    setIsModalOpen(true);
-  }
-  const handleOk = () => {
-    setIsModalOpen(false)
-  }
-  const handleCancel = () => {
-    setSelectedWorker([])
-    setIsModalOpen(false)
-  }
-
   return (
     <>
       {/* <div className="title">
@@ -44,13 +28,7 @@ const Worker = () => {
         <div className="kiri">
           <AddWorker />
         </div>
-        <WorkerList showModal={showModal}/>
-        <ModalComponent
-          isModalOpen={isModalOpen}
-          handleOk={handleOk}
-          handleCancel={handleCancel}
-          selectedWorker={selectedWorker}
-        />
+        <WorkerList/>
       </div>
     </>
   );

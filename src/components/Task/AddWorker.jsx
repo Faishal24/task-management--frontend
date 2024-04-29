@@ -41,10 +41,6 @@ const AddWorker = () => {
       .catch((err) => console.log(err));
   };
 
-  const test = () => {
-    console.log(karyawan);
-  };
-
   return (
     <>
       <Title level={3}>Tambah Karyawan</Title>
