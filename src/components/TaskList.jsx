@@ -60,7 +60,7 @@ const TaskList = () => {
 
   const handleSave = () => {
     axios
-      .put(`http://localhost:5000/update/${selectedTask._id}`, {
+      .put(`http://localhost:5000/update/task/${selectedTask._id}`, {
         tasks: selectedTask.tasks,
       })
       .then((result) => {
@@ -68,16 +68,7 @@ const TaskList = () => {
       })
       .catch((err) => console.log("Error:", err));
   };
-
-  const handleDelete = () => {
-    axios
-      .delete(`http://localhost:5000/delete/${selectedTask._id}`)
-      .then((result) => {
-        location.reload();
-      })
-      .catch((err) => console.log("Error", err));
-  };
-
+  
   const deleteTask = (index) => {
     const updatedDesc = [...selectedTask.tasks];
     updatedDesc.splice(index, 1);

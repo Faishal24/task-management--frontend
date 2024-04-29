@@ -13,15 +13,6 @@ const AddWorker = () => {
     phone: "",
     devision: "",
   });
-  const [selectedWorker, setselectedWorker] = useState("");
-  const devisi = [
-    "pemasaran",
-    "riset",
-    "produksi",
-    "keuangan",
-    "hubungan petani",
-    "hubungan masyarakat",
-  ];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -112,10 +103,14 @@ const AddWorker = () => {
               devision: value,
             }))
           }
-          options={devisi.map((dev) => ({
-            value: dev,
-            label: dev,
-          }))}
+          options={[
+            { value: "pemasaran", label: "Keuangan" },
+            { value: "riset", label: "Riset" },
+            { value: "produksi", label: "Produksi" },
+            { value: "keuangan", label: "Keuangan" },
+            { value: "hubungan petani", label: "Hubungan Petani" },
+            { value: "hubungan masyarakat", label: "Hubungan Masyarakat" },
+          ]}
         />
         <Button className="btnAdd" type="primary" onClick={handleAddWorker}>
           Tambah

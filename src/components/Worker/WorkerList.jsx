@@ -1,9 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Empty, Space, Table, Tag, Popconfirm, Skeleton, Modal, Input, InputNumber, Button, Typography } from "antd";
+import {
+  Empty,
+  Space,
+  Table,
+  Tag,
+  Popconfirm,
+  Skeleton,
+  Select,
+  Modal,
+  Input,
+  InputNumber,
+  Button,
+  Typography,
+} from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import axios from "axios";
 
-const {Text} = Typography
+const { Text } = Typography;
 
 const WorkerList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,7 +29,7 @@ const WorkerList = () => {
   ///////////// Modal /////////////
   const showModal = (record) => {
     setIsModalOpen(true);
-    setInput(record)
+    setInput(record);
   };
   const handleOk = () => {
     setIsModalOpen(false);
@@ -44,6 +57,17 @@ const WorkerList = () => {
       })
       .catch((err) => console.log("Error", err));
   };
+
+  const handleEdit = () => {
+    delete input.__v
+    delete input.index
+    axios
+      .put(`http://localhost:5000/update/user/${input._id}`, input)
+      .then(() => {
+        location.reload();
+      })
+      .catch((err) => console.log("Error", err));
+  }
 
   const columns = [
     {
@@ -190,7 +214,7 @@ const WorkerList = () => {
         <Table
           columns={columns}
           dataSource={workerWithIndex}
-          pagination={false}
+          // pagination={false}
           showSorterTooltip={{
             target: "sorter-icon",
           }}
@@ -210,13 +234,18 @@ const WorkerList = () => {
           }}
         />
       </div>
+
       <Modal
         title="Ubah Detail Karyawan"
         open={isModalOpen}
-        onOk={handleOk}
+        onOk={handleEdit}
         onCancel={handleCancel}
       >
-        <Space direction="horizontal" size="middle" style={{marginTop:"1em"}}>
+        <Space
+          direction="horizontal"
+          size="middle"
+          style={{ marginTop: "1em" }}
+        >
           <Space direction="vertical" size={26}>
             <Text>Nama</Text>
             <Text>Umur</Text>
@@ -237,54 +266,78 @@ const WorkerList = () => {
             </Space>
 
             <Space direction="horizontal">
-              <InputNumber 
-              style={{ width: "205%" }}
-              placeholder={input.age} 
-              value={isModalOpen == false ? null : input.age}
-              onChange={(e) => handleChange(e, "age")}/>
+              <Input
+                style={{ width: "205%" }}
+                placeholder={input.age}
+                value={isModalOpen == false ? null : input.age}
+                onChange={(e) => handleChange(e, "age")}
+              />
             </Space>
 
             <Space direction="horizontal">
-              <Input 
+              <Input
+                style={{ width: "205%" }}
+                placeholder={input.address}
+                value={isModalOpen == false ? null : input.address}
+                onChange={(e) => handleChange(e, "address")}
+              />
+            </Space>
+
+            <Select
               style={{ width: "205%" }}
-              placeholder={input.address} 
-              value={isModalOpen == false ? null : input.address}
-              onChange={(e) => handleChange(e, "address")}/>
+              placeholder="Jenis kelamin"
+              value={input.gender}
+              onChange={(value) =>
+                setInput((prevKaryawan) => ({
+                  ...prevKaryawan,
+                  gender: value,
+                }))
+              }
+              options={[
+                { value: "male", label: "Laki-laki" },
+                { value: "female", label: "Perempuan" },
+              ]}
+            />
+
+            <Space direction="horizontal">
+              <Input
+                style={{ width: "205%" }}
+                placeholder={input.phone}
+                value={isModalOpen == false ? null : input.phone}
+                onChange={(e) => handleChange(e, "phone")}
+              />
             </Space>
 
             <Space direction="horizontal">
-              <Input 
-              style={{ width: "205%" }}
-              placeholder={input.gender} 
-              value={isModalOpen == false ? null : input.gender}
-              onChange={(e) => handleChange(e, "gender")}/>
+              <Input
+                style={{ width: "205%" }}
+                placeholder={input.email}
+                value={isModalOpen == false ? null : input.email}
+                onChange={(e) => handleChange(e, "email")}
+              />
             </Space>
 
-            <Space direction="horizontal">
-              <Input 
+            <Select
               style={{ width: "205%" }}
-              placeholder={input.phone} 
-              value={isModalOpen == false ? null : input.phone}
-              onChange={(e) => handleChange(e, "phone")}/>
-            </Space>
-
-            <Space direction="horizontal">
-              <Input 
-              style={{ width: "205%" }}
-              placeholder={input.email} 
-              value={isModalOpen == false ? null : input.email}
-              onChange={(e) => handleChange(e, "email")}/>
-            </Space>
-
-            <Space direction="horizontal">
-              <Input 
-              style={{ width: "205%" }}
-              placeholder={input.devision} 
-              value={isModalOpen == false ? null : input.devision}
-              onChange={(e) => handleChange(e, "devision")}/>
-            </Space>
+              placeholder="Pilih devisi"
+              value={input.devision}
+              onChange={(value) =>
+                setInput((prevKaryawan) => ({
+                  ...prevKaryawan,
+                  devision: value,
+                }))
+              }
+              options={[
+                { value: "pemasaran", label: "Keuangan" },
+                { value: "riset", label: "Riset" },
+                { value: "produksi", label: "Produksi" },
+                { value: "keuangan", label: "Keuangan" },
+                { value: "hubungan petani", label: "Hubungan Petani" },
+                { value: "hubungan masyarakat", label: "Hubungan Masyarakat" },
+              ]}
+            />
           </Space>
-          {/* <Button onClick={() => console.log(input)}>Click Me</Button> */}
+          <Button onClick={() => console.log(input)}>Click Me</Button>
         </Space>
       </Modal>
     </>
