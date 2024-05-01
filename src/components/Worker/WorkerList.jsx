@@ -214,7 +214,7 @@ const WorkerList = () => {
         <Table
           columns={columns}
           dataSource={workerWithIndex}
-          // pagination={false}
+          // pagination={{ position:["bottomCenter"] }}
           showSorterTooltip={{
             target: "sorter-icon",
           }}

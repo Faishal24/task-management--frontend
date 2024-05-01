@@ -13,6 +13,7 @@ import BtnLogout from "../components/BtnLogout";
 import { Routes, Route, Link } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Worker from "./Worker";
+import TaskDetail from "./TaskDetail";
 
 const { Header, Sider, Content } = Layout;
 
@@ -38,7 +39,7 @@ const Home = () => {
       >
         <div className="demo-logo-vertical" />
         <Menu theme="dark" mode="inline" defaultSelectedKeys={["2"]}>
-        <Menu.Item key="1" disabled>
+          <Menu.Item key="1" disabled>
             <h1>TManagement</h1>
           </Menu.Item>
           <Menu.Item key="2" icon={<DashboardOutlined />}>
@@ -57,7 +58,7 @@ const Home = () => {
       </Sider>
       <Layout
         style={{
-          marginLeft: 200
+          marginLeft: 200,
         }}
       >
         <Header
@@ -95,7 +96,8 @@ const Home = () => {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/tugas" element={<Task />} />
-            <Route path="/anggota" element={<Worker/>} />
+            <Route path="/anggota" element={<Worker />} />
+            <Route path="/detail" element={<TaskDetail />} />
             <Route path="/laporan" element={<div>Belum Selesai</div>} />
           </Routes>
         </Content>

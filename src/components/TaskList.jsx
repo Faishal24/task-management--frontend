@@ -139,7 +139,6 @@ const TaskList = () => {
               </ConfigProvider>
             )}
             <Progress
-              steps={task.tasks.length}
               percent={
                 task.tasks.length === 0
                   ? 0
@@ -150,7 +149,6 @@ const TaskList = () => {
                       100
                     ).toFixed(0)
               }
-              size={20}
             />
           </Card>
         ))
