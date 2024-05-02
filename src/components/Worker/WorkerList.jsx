@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Empty,
   Space,
@@ -21,6 +22,7 @@ const { Text } = Typography;
 const WorkerList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [worker, setWorker] = useState([]);
+  const [selectedWorker, setSelectedWorker] = useState()
   const workerWithIndex = worker.map((item, index) => ({
     ...item,
     index: index + 1,
@@ -69,6 +71,10 @@ const WorkerList = () => {
       .catch((err) => console.log("Error", err));
   }
 
+  const navigation = useNavigate()
+  const pindah = (record) => {
+    navigation('/profil', {state: record})
+  }
   const columns = [
     {
       title: "No",
@@ -80,7 +86,7 @@ const WorkerList = () => {
       key: "name",
       sorter: (a, b) => a.name.localeCompare(b.name),
       sortDirections: ["ascend"],
-      render: (text) => <a>{text}</a>,
+      render: (text, record) => <a onClick={() => pindah(record)}>{text}</a>,
     },
     {
       title: "Umur",

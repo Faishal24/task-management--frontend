@@ -14,6 +14,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Worker from "./Worker";
 import TaskDetail from "./TaskDetail";
+import Profile from "./Profile";
 
 const { Header, Sider, Content } = Layout;
 
@@ -98,6 +99,7 @@ const Home = () => {
             <Route path="/tugas" element={<Task />} />
             <Route path="/anggota" element={<Worker />} />
             <Route path="/detail" element={<TaskDetail />} />
+            <Route path="/profil" element={<Profile />} />
             <Route path="/laporan" element={<div>Belum Selesai</div>} />
           </Routes>
         </Content>
