@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Space, Table, Tag } from "antd";
-import axios from "axios";
+import { ConfigProvider, Image, Space, Table, Tag } from "antd";
 import { useLocation } from "react-router-dom";
 
 const Profile = () => {
@@ -8,21 +7,17 @@ const Profile = () => {
 
   const columns = [
     {
-      // title: 'Key',
+      title: "Nama",
       dataIndex: "key",
       key: "key",
     },
     {
-      // title: 'Value',
+      title: `${location.state.name}`,
       dataIndex: "value",
       key: "value",
     },
   ];
   const data = [
-    {
-      key: "Nama",
-      value: `${location.state.name}`,
-    },
     {
       key: "Umur",
       value: `${location.state.age}`,
@@ -40,7 +35,7 @@ const Profile = () => {
       value: `${location.state.phone}`,
     },
     {
-      key: "Devision",
+      key: "Devisi",
       value: `${location.state.devision}`,
     },
     {
@@ -48,10 +43,66 @@ const Profile = () => {
       value: `${location.state.email}`,
     },
   ];
+
+  ////////////////////
+  ////// Devisi //////
+  ////////////////////
+  const devisionMap = {
+    keuangan: "Keuangan",
+    riset: "Riset",
+    produksi: "Produksi",
+    "hubungan petani": "Hubungan Petani",
+    "hubungan masyarakat": "Hubungan Masyarakat",
+    pemasaran: "Pemasaran",
+  };
+
+  const newData = data.map((item) => {
+    if (item.key === "Devisi" && devisionMap[item.value]) {
+      return { ...item, value: devisionMap[item.value] };
+    }
+    if (item.key === "Jenis Kelamin" && item.value === "male") {
+      return { ...item, value: "Laki-laki" };
+    }
+    if (item.key === "Jenis Kelamin" && item.value === "female") {
+      return { ...item, value: "Perempuan" };
+    }
+    return item;
+  });
+
   return (
     <>
-      <Table dataSource={data} columns={columns} pagination={false} />
-      <button onClick={() => console.log(location.state)}>S</button>
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: "2em" }}>
+        <Image
+          width={300}
+          src={location.state.name == "Cindhi" ? '../../public/pp.png' : `https://ui-avatars.com/api/?size=300&name=${location.state.name}`}
+          style={{
+            borderRadius: "50%",
+          }}
+        />
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <ConfigProvider
+          theme={{
+            components: {
+              Table: {
+                borderColor: "#d9d9d9",
+              },
+            },
+          }}
+        >
+          <Table
+            dataSource={newData}
+            columns={columns}
+            pagination={false}
+            bordered
+            style={{
+              minWidth: "800px",
+            }}
+          />
+        </ConfigProvider>
+      </div>
+      {/* <button onClick={() => console.log(location.state.name)}>S</button> */}
     </>
   );
 };
