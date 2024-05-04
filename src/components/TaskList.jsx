@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   Modal,
@@ -84,6 +85,11 @@ const TaskList = () => {
         console.log("Error", err);
       });
   };
+
+  const navigation = useNavigate()
+  const pindah = (record) => {
+    navigation('/detail', {state: record})
+  }
 
   const test = () => {
     console.log("==============Test==============");
@@ -173,7 +179,7 @@ const TaskList = () => {
                 <Button key="back" onClick={handleEdit}>
                   Ubah
                 </Button>
-                <Button type="primary">Detail Tugas</Button>
+                <Button type="primary" onClick={() => pindah(selectedTask)}>Detail Tugas</Button>
               </>
             )}
           </Space>,

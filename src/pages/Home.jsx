@@ -15,6 +15,7 @@ import Dashboard from "./Dashboard";
 import Worker from "./Worker";
 import TaskDetail from "./TaskDetail";
 import Profile from "./Profile";
+import Report from "./Report";
 
 const { Header, Sider, Content } = Layout;
 
@@ -100,7 +101,7 @@ const Home = () => {
             <Route path="/anggota" element={<Worker />} />
             <Route path="/detail" element={<TaskDetail />} />
             <Route path="/profil" element={<Profile />} />
-            <Route path="/laporan" element={<div>Belum Selesai</div>} />
+            <Route path="/laporan" element={<Report />} />
           </Routes>
         </Content>
       </Layout>

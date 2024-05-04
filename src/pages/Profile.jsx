@@ -74,7 +74,7 @@ const Profile = () => {
       <div style={{ display: "flex", justifyContent: "center", marginBottom: "2em" }}>
         <Image
           width={300}
-          src={location.state.name == "Cindhi" ? '../../public/pp.png' : `https://ui-avatars.com/api/?size=300&name=${location.state.name}`}
+          src={location.state.name == "Cindhi Pratiwi" ? '../../public/pp.png' : `https://ui-avatars.com/api/?size=300&name=${location.state.name}`}
           style={{
             borderRadius: "50%",
           }}

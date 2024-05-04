@@ -171,8 +171,8 @@ const WorkerList = () => {
       render: (record) => (
         <Space size="middle">
           <Popconfirm
-            title="Delete the task"
-            description="Are you sure to delete this task?"
+            title="Hapus karyawan"
+            description="Apakah yakin untuk menghapus karyawan?"
             onConfirm={() => handleDelete(record._id)}
             okText="Yes"
             cancelText="No"

@@ -10,6 +10,7 @@ const AddTask = () => {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
   const [date, setDate] = useState("");
+  const [desc, setDesc] = useState("");
   const [selectedWorker, setselectedWorker] = useState("");
 
   useEffect(() => {
@@ -30,6 +31,7 @@ const AddTask = () => {
       description: task,
       isDone: false,
       dueTo: date,
+      content: desc
     };
 
     axios.get(`http://localhost:5000/get/`).then((response) => {
@@ -69,6 +71,13 @@ const AddTask = () => {
           type="text"
           placeholder="Masukkan nama tugas"
           onChange={(e) => setTask(e.target.value)}
+        />
+
+        <Input
+          className="inputTask"
+          type="text"
+          placeholder="Masukkan deskripsi"
+          onChange={(e) => setDesc(e.target.value)}
         />
 
         <DatePicker
