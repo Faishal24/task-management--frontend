@@ -1,18 +1,24 @@
-import React from "react";
-import { Card, Typography, Tag, Tooltip } from "antd";
-import { DownloadOutlined, CheckOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
+import { Card, Input, Typography, Tag, Tooltip } from "antd";
+import {
+  DownloadOutlined,
+  CheckOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const { Title } = Typography;
 
 const TaskDetail = () => {
+  const [editIndex, setEditIndex] = useState(-1);
+  const [editedDesc, setEditedDesc] = useState('')
   const locationD = useLocation();
   const data = locationD.state;
-  const navigation = useNavigate()
+  const navigation = useNavigate();
 
   const updateTaskStatus = (index) => {
-    const updatedTask = {...data.tasks[index], status: "done"};
+    const updatedTask = { ...data.tasks[index], status: "done" };
     const updatedTasks = [...data.tasks];
     updatedTasks[index] = updatedTask;
     console.log(updatedTasks);
@@ -20,11 +26,36 @@ const TaskDetail = () => {
       .put(`http://localhost:5000/update/task/${data._id}`, {
         tasks: updatedTasks,
       })
-      .then((result) => {
-        navigation('/tugas')
+      .then(() => {
+        navigation("/tugas");
       })
       .catch((err) => console.log("Error:", err));
-  }
+  };
+
+  const handleEdit = (index) => {
+    setEditIndex(index);
+  };
+
+  const handleDescriptionChange = (event, index) => {
+    setEditedDesc(event.target.value)
+
+    if (event.key === 'Enter') {
+      const newData = [...data.tasks]
+      newData[index].content = editedDesc;
+
+      axios
+      .put(`http://localhost:5000/update/task/${data._id}`, {
+        tasks: newData,
+      })
+      .then((result) => {
+        // navigation("/tugas");
+        console.log(result);
+      })
+      .catch((err) => console.log("Error:", err));
+
+      setEditIndex(-1);
+    }
+  };
 
   return (
     <>
@@ -54,15 +85,31 @@ const TaskDetail = () => {
             ) : null,
             item.status === "submitted" ? (
               <Tooltip title="Setujui tugas">
-                <CheckOutlined style={{ fontSize: 20 }} onClick={() => updateTaskStatus(index)}/>
+                <CheckOutlined
+                  style={{ fontSize: 20 }}
+                  onClick={() => updateTaskStatus(index)}
+                />
               </Tooltip>
             ) : null,
+            <Tooltip title="Edit deskripsi">
+              <EditOutlined onClick={() => handleEdit(index)} />
+            </Tooltip>,
           ]}
         >
-          {item.content}
-          {/* <button onClick={() => navigation('/tugas')}>s</button> */}
+          {editIndex == index ? (
+            <Tooltip title="Tekan enter untuk menyimpan">
+            <Input
+              defaultValue={item.content}
+              onChange={(event) => handleDescriptionChange(event, index)}
+              onKeyDown={(event) => handleDescriptionChange(event, index)}
+            />
+            </Tooltip>
+          ) : (
+            item.content
+          )}
         </Card>
       ))}
+      {/* <button onClick={() => console.log(updatedTasks)}>s</button> */}
     </>
   );
 };
