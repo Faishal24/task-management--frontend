@@ -149,7 +149,7 @@ const TaskList = () => {
                 task.tasks.length === 0
                   ? 0
                   : (
-                      (task.tasks.filter((task) => task.isDone === true)
+                      (task.tasks.filter((task) => task.status === "done")
                         .length /
                         task.tasks.length) *
                       100

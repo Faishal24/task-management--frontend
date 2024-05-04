@@ -24,7 +24,7 @@ const Detail = () => {
   // Tugas tersedia
   const taskAvailable = () => {
     const task = tasks.map((task) => {
-      const length = task.tasks.filter((task) => task.isDone === false).length;
+      const length = task.tasks.filter((task) => task.status === "pending").length;
       return length;
     });
     const sum = task.reduce(
@@ -37,7 +37,7 @@ const Detail = () => {
   // tugas selesai
   const taskCompleted = () => {
     const task = tasks.map((task) => {
-      const length = task.tasks.filter((task) => task.isDone === true).length;
+      const length = task.tasks.filter((task) => task.status === "done").length;
       return length;
     });
     const sum = task.reduce(

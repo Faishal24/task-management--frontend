@@ -47,7 +47,7 @@ const List = () => {
   const taskNotDoneArray = [];
   const taskDone = tasks.reduce((total, item) => {
     item.tasks.forEach((task) => {
-      if (task.isDone) {
+      if (task.status == "done") {
         taskDoneArray.push(task.description);
       } else {
         taskNotDoneArray.push(task.description);

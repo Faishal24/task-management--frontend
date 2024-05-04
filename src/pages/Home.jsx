@@ -3,7 +3,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UserOutlined,
-  DownloadOutlined,
+  BookOutlined,
   DashboardOutlined,
   FolderOpenOutlined,
 } from "@ant-design/icons";
@@ -53,7 +53,7 @@ const Home = () => {
           <Menu.Item key="4" icon={<UserOutlined />}>
             <Link to="/anggota">Anggota</Link>
           </Menu.Item>
-          <Menu.Item key="5" icon={<DownloadOutlined />}>
+          <Menu.Item key="5" icon={<BookOutlined />}>
             <Link to="/laporan">Laporan</Link>
           </Menu.Item>
         </Menu>

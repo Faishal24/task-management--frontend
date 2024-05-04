@@ -29,7 +29,6 @@ const AddTask = () => {
     console.log(selectedWorker);
     const newTask = {
       description: task,
-      isDone: false,
       dueTo: date,
       content: desc
     };
@@ -49,7 +48,7 @@ const AddTask = () => {
         console.log("Karyawan Ditemukan");
         worker.tasks.push(newTask);
         axios
-          .put(`http://localhost:5000/update/${worker._id}`, worker)
+          .put(`http://localhost:5000/update/task/${worker._id}`, worker)
           .then((result) => {
             console.log("Berhasil ditambahkan");
             console.log(result);

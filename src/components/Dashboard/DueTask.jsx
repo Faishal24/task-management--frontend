@@ -42,7 +42,7 @@ const DueTask = () => {
   const taskWorker = [];
   const taskDone = tasks.reduce((total, item) => {
     item.tasks.forEach((task) => {
-      if (!task.isDone) {
+      if (task.status == "pending") {
         taskNotDoneArray.push(task.description);
         taskDue.push(task.dueTo);
         taskWorker.push(item.name);
