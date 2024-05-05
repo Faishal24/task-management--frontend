@@ -110,6 +110,7 @@ const AddWorker = () => {
             { value: "keuangan", label: "Keuangan" },
             { value: "hubungan petani", label: "Hubungan Petani" },
             { value: "hubungan masyarakat", label: "Hubungan Masyarakat" },
+            { value: "it", label: "IT" },
           ]}
         />
         <Button className="btnAdd" type="primary" onClick={handleAddWorker}>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Input, Typography, Tag, Tooltip } from "antd";
+import { Card, Input, Space, Typography, Tag, Tooltip } from "antd";
 import {
   DownloadOutlined,
   CheckOutlined,
@@ -12,7 +12,7 @@ const { Title } = Typography;
 
 const TaskDetail = () => {
   const [editIndex, setEditIndex] = useState(-1);
-  const [editedDesc, setEditedDesc] = useState('')
+  const [editedDesc, setEditedDesc] = useState("");
   const locationD = useLocation();
   const data = locationD.state;
   const navigation = useNavigate();
@@ -37,21 +37,21 @@ const TaskDetail = () => {
   };
 
   const handleDescriptionChange = (event, index) => {
-    setEditedDesc(event.target.value)
+    setEditedDesc(event.target.value);
 
-    if (event.key === 'Enter') {
-      const newData = [...data.tasks]
+    if (event.key === "Enter") {
+      const newData = [...data.tasks];
       newData[index].content = editedDesc;
 
       axios
-      .put(`http://localhost:5000/update/task/${data._id}`, {
-        tasks: newData,
-      })
-      .then((result) => {
-        // navigation("/tugas");
-        console.log(result);
-      })
-      .catch((err) => console.log("Error:", err));
+        .put(`http://localhost:5000/update/task/${data._id}`, {
+          tasks: newData,
+        })
+        .then((result) => {
+          // navigation("/tugas");
+          console.log(result);
+        })
+        .catch((err) => console.log("Error:", err));
 
       setEditIndex(-1);
     }
@@ -59,9 +59,35 @@ const TaskDetail = () => {
 
   return (
     <>
-      <Title level={2} style={{ textAlign: "left", paddingTop: "0" }}>
-        {data.name}
-      </Title>
+      <Space className="title">
+        <Title level={2} style={{ textAlign: "left", paddingTop: "0" }}>
+          {data.name}
+        </Title>
+        <Title
+          level={5}
+          style={{
+            marginTop: "0px",
+            paddingBottom: "0px",
+            opacity: "50%",
+          }}
+        >
+          {data.devision == "riset"
+            ? "Riset"
+            : data.devision == "produksi"
+            ? "Produksi"
+            : data.devision == "keuangan"
+            ? "Keuangan"
+            : data.devision == "it"
+            ? "IT"
+            : data.devision == "hubungan petani"
+            ? "Hubungan Petani"
+            : data.devision == "hubungan masyarakat"
+            ? "Hubungan Masyarakat"
+            : data.devision == "pemasaran"
+            ? "Pemasaran"
+            : null}
+        </Title>
+      </Space>
       {data.tasks.map((item, index) => (
         <Card
           key={index}
@@ -98,11 +124,11 @@ const TaskDetail = () => {
         >
           {editIndex == index ? (
             <Tooltip title="Tekan enter untuk menyimpan">
-            <Input
-              defaultValue={item.content}
-              onChange={(event) => handleDescriptionChange(event, index)}
-              onKeyDown={(event) => handleDescriptionChange(event, index)}
-            />
+              <Input
+                defaultValue={item.content}
+                onChange={(event) => handleDescriptionChange(event, index)}
+                onKeyDown={(event) => handleDescriptionChange(event, index)}
+              />
             </Tooltip>
           ) : (
             item.content

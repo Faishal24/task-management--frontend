@@ -174,8 +174,8 @@ const WorkerList = () => {
             title="Hapus karyawan"
             description="Apakah yakin untuk menghapus karyawan?"
             onConfirm={() => handleDelete(record._id)}
-            okText="Yes"
-            cancelText="No"
+            okText="Ya"
+            cancelText="Tidak"
             placement="left"
           >
             <Space direction="vertical">
@@ -340,6 +340,7 @@ const WorkerList = () => {
                 { value: "keuangan", label: "Keuangan" },
                 { value: "hubungan petani", label: "Hubungan Petani" },
                 { value: "hubungan masyarakat", label: "Hubungan Masyarakat" },
+                { value: "it", label: "IT" },
               ]}
             />
           </Space>
