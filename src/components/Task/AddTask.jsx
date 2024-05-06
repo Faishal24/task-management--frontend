@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { DatePicker, Input, Select, Button, Space, Typography } from "antd";
-// import dayjs from "dayjs";
-// import customParseFormat from "dayjs/plugin/customParseFormat";
-// dayjs.extend(customParseFormat);
-const {Title} = Typography
+const { Title } = Typography;
 
 const AddTask = () => {
   const [task, setTask] = useState("");
@@ -27,11 +24,15 @@ const AddTask = () => {
 
   const handleAdd = () => {
     console.log(selectedWorker);
+    const uuid = Date.now();
+
     const newTask = {
+      taskId: uuid,
       description: task,
       dueTo: date,
-      content: desc
+      content: desc,
     };
+    console.log(newTask);
 
     axios.get(`http://localhost:5000/get/`).then((response) => {
       const workers = response.data;

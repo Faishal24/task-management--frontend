@@ -49,7 +49,7 @@ const TaskDetail = () => {
         })
         .then((result) => {
           // navigation("/tugas");
-          console.log(result);
+          console.log(newData);
         })
         .catch((err) => console.log("Error:", err));
 

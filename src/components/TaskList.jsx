@@ -65,7 +65,8 @@ const TaskList = () => {
         tasks: selectedTask.tasks,
       })
       .then((result) => {
-        location.reload();
+        // location.reload();
+        console.log(selectedTask.tasks)
       })
       .catch((err) => console.log("Error:", err));
   };
@@ -74,7 +75,7 @@ const TaskList = () => {
     const updatedDesc = [...selectedTask.tasks];
     updatedDesc.splice(index, 1);
     axios
-      .put(`http://localhost:5000/update/${selectedTask._id}`, {
+      .put(`http://localhost:5000/update/task/${selectedTask._id}`, {
         tasks: updatedDesc,
       })
       .then((result) => {
