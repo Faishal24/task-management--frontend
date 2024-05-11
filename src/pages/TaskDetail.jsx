@@ -57,6 +57,36 @@ const TaskDetail = () => {
     }
   };
 
+  const handleDownload = async (taskId) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/download/${taskId}`,
+        {
+          responseType: "blob", // Mengatur responseType sebagai blob agar dapat mengunduh file
+        }
+      );
+
+      // Membuat URL objek untuk file yang diunduh
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+
+      // Membuat elemen anchor untuk menautkan URL objek
+      const link = document.createElement("a");
+      link.href = url;
+
+      // Mengatur atribut unduhan dan nama file
+      link.setAttribute("download", "fileToDownload.jpg");
+
+      // Simulasikan klik pada elemen anchor untuk memulai pengunduhan
+      document.body.appendChild(link);
+      link.click();
+
+      // Hapus elemen anchor setelah pengunduhan selesai
+      link.parentNode.removeChild(link);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <>
       <Space className="title">
@@ -98,7 +128,7 @@ const TaskDetail = () => {
             item.status === "done" ? (
               <Tag color="green">Selesai</Tag>
             ) : item.status === "submitted" ? (
-              <Tag color="blue">Telah Diserahkan</Tag>
+              <Tag color="blue" onClick={() => console.log(item)}>Telah Diserahkan</Tag>
             ) : (
               <Tag color="red">Belum Selesai</Tag>
             )
@@ -106,7 +136,10 @@ const TaskDetail = () => {
           actions={[
             item.status === "submitted" ? (
               <Tooltip title="Unduh file">
-                <DownloadOutlined style={{ fontSize: 20 }} />
+                <DownloadOutlined
+                  style={{ fontSize: 20 }}
+                  onClick={() => handleDownload(item.taskId)}
+                />
               </Tooltip>
             ) : null,
             item.status === "submitted" ? (
@@ -135,7 +168,7 @@ const TaskDetail = () => {
           )}
         </Card>
       ))}
-      {/* <button onClick={() => console.log(updatedTasks)}>s</button> */}
+      {/* <button onClick={() => console.log(item)}>s</button> */}
     </>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Button, List, Table, Typography, Space } from "antd";
+import { Button, ConfigProvider, Flex, List, Table, Typography, Space } from "antd";
 import {
   CheckOutlined,
   CloseOutlined,
@@ -8,7 +8,7 @@ import {
 import axios from "axios";
 import generatePDF, { Margin } from "react-to-pdf";
 
-const { Text } = Typography;
+const { Title, Text } = Typography;
 
 const Report = () => {
   const [workers, setWorkers] = useState([]);
@@ -134,18 +134,39 @@ const Report = () => {
 
   return (
     <>
-      <Button type="primary" onClick={() => generatePDF(targetRef, options)}
-        style={{marginBottom: "1em"}}
-      >
-        Download Laporan
-      </Button>
+      {/* <Space> */}
+      <Flex align="center" justify="space-between" style={{marginBottom: 10}}>
+        <Title level={2} align="center" style={{paddingTop: 0}}>
+          Laporan
+        </Title>
+        <Button type="primary" onClick={() => generatePDF(targetRef, options)}>
+          Download Laporan
+        </Button>
+      </Flex>
+      {/* </Space> */}
       <div ref={targetRef}>
-        <Table
-          dataSource={dataSource}
-          columns={columns}
-          pagination={false}
-          bordered
-        />
+        <ConfigProvider
+          theme={{
+            components: {
+              Table: {
+                borderColor: "#dedede",
+                headerBg: "#1677ff",
+                headerColor: "#fafafa",
+                // cellFontSize: 16
+              },
+            },
+            token: {
+              fontSize: 16
+            }
+          }}
+        >
+          <Table
+            dataSource={dataSource}
+            columns={columns}
+            pagination={false}
+            bordered
+          />
+        </ConfigProvider>
       </div>
     </>
   );
