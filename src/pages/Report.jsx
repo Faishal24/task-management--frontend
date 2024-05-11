@@ -13,15 +13,15 @@ const { Title, Text } = Typography;
 const Report = () => {
   const [workers, setWorkers] = useState([]);
 
-  const dataSource = workers.map((worker, index) => ({
-    key: index.toString(),
+  const dataSource = workers.map((worker) => ({
     name: worker.name,
     age: worker.age,
     address: worker.address,
-    tasks: worker.tasks.map((task) => task.description), //.join(', ') // Mengubah array tugas menjadi string
+    tasks: worker.tasks.map((task) => task.description),
     tasksStatus: worker.tasks.map((task) => task.status),
     dueDate: worker.tasks.map((task) => task.dueTo),
     devision: worker.devision,
+    createdAt: worker.tasks.map((task) => task.createdAt)
   }));
 
   const toCamelCase = (str) => {
@@ -40,7 +40,7 @@ const Report = () => {
 
   const columns = [
     {
-      title: "Nama",
+      title: "Nama Tugas",
       dataIndex: "name",
       key: "name",
     },
@@ -61,7 +61,7 @@ const Report = () => {
       ),
     },
     {
-      title: "Status Tugas",
+      title: "Status",
       dataIndex: "tasksStatus",
       key: "tasksStatus",
       render: (text) => (
@@ -91,19 +91,26 @@ const Report = () => {
       ),
     },
     {
-      title: "Tanggal Pembuatan Tugas",
-      dataIndex: "",
-      key: "",
+      title: "Tanggal Pembuatan",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (text) => (
+        <List
+          size="middle"
+          dataSource={text}
+          renderItem={(item) => <List.Item>{item}</List.Item>}
+        />
+      ),
     },
     {
-      title: "Tenggat Tugas",
+      title: "Batas Akhir",
       dataIndex: "dueDate",
       key: "dueDate",
       render: (text) => (
         <List
           size="middle"
           dataSource={text}
-          renderItem={(item, index) => <List.Item>{item}</List.Item>}
+          renderItem={(item) => <List.Item>{item}</List.Item>}
         />
       ),
     },

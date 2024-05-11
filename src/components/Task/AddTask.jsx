@@ -25,10 +25,13 @@ const AddTask = () => {
   const handleAdd = () => {
     console.log(selectedWorker);
     const uuid = Date.now();
+    let fullDate = new Date()
+    let today = `${fullDate.getDate()}-${fullDate.getMonth()+1}-${fullDate.getFullYear()}`
 
     const newTask = {
       taskId: uuid,
       description: task,
+      createdAt: today,
       dueTo: date,
       content: desc,
     };
