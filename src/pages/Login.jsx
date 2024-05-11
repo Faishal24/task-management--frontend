@@ -117,7 +117,7 @@ const Login = () => {
               <Input.Password
                 prefix={<LockOutlined />}
                 type="password"
-                placeholder="Password"
+                placeholder="Kata Sandi"
                 name="password"
                 onChange={handleInput}
                 // onChange={(e) => setPassword(e.target.value)}
@@ -125,10 +125,10 @@ const Login = () => {
             </Form.Item>
             <Form.Item>
               <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox>Remember me</Checkbox>
+                <Checkbox>Ingat saya</Checkbox>
               </Form.Item>
               <a style={styles.forgotPassword} href="">
-                Forgot password?
+                Lupa sandi?
               </a>
             </Form.Item>
             <Form.Item style={{ marginBottom: "0px" }}>
