@@ -65,7 +65,7 @@ const TaskList = () => {
         tasks: selectedTask.tasks,
       })
       .then((result) => {
-        // location.reload();
+        location.reload();
         console.log(selectedTask.tasks)
       })
       .catch((err) => console.log("Error:", err));
