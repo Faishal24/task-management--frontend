@@ -40,7 +40,7 @@ const Report = () => {
 
   const columns = [
     {
-      title: "Nama Tugas",
+      title: "Nama Karyawan",
       dataIndex: "name",
       key: "name",
     },

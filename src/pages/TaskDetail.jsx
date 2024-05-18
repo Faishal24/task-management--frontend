@@ -66,22 +66,29 @@ const TaskDetail = () => {
         }
       );
 
-      // Membuat URL objek untuk file yang diunduh
-      const url = window.URL.createObjectURL(new Blob([response.data]));
 
-      // Membuat elemen anchor untuk menautkan URL objek
+      console.log(response)
+      // Mendapatkan header 'Content-Disposition' dari respons
+      const contentDisposition = response.headers["content-disposition"];
+      let fileName = "downloaded-file"; // Nama file default
+
+      if (contentDisposition) {
+        const fileNameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
+        if (fileNameMatch && fileNameMatch.length === 2) {
+          fileName = fileNameMatch[1];
+        }
+      }
+
+      console.log("Content-Disposition:", contentDisposition);
+      console.log("Extracted fileName:", fileName);
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
-
-      // Mengatur atribut unduhan dan nama file
-      link.setAttribute("download", "fileToDownload.jpg");
-
-      // Simulasikan klik pada elemen anchor untuk memulai pengunduhan
+      link.setAttribute("download", fileName);
       document.body.appendChild(link);
       link.click();
-
-      // Hapus elemen anchor setelah pengunduhan selesai
-      link.parentNode.removeChild(link);
+      document.body.removeChild(link);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -128,7 +135,9 @@ const TaskDetail = () => {
             item.status === "done" ? (
               <Tag color="green">Selesai</Tag>
             ) : item.status === "submitted" ? (
-              <Tag color="blue" onClick={() => console.log(item)}>Telah Diserahkan</Tag>
+              <Tag color="blue" onClick={() => console.log(item)}>
+                Telah Diserahkan
+              </Tag>
             ) : (
               <Tag color="red">Belum Selesai</Tag>
             )
