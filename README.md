@@ -2,11 +2,11 @@
 
 ## Overview
 
-This Task Management application is a comprehensive tool designed to help users manage their tasks efficiently. It provides features for creating, assigning, tracking, and updating tasks. The application is built with a React Native frontend and an Express.js backend, using MongoDB for data storage.
+This Task Management application is a comprehensive tool designed to help users manage their tasks efficiently. It provides features for creating, assigning, tracking, and updating tasks. The application is built with a React.js frontend and an Express.js backend, using MongoDB for data storage.
 
 ## Features
 
-- **User Authentication**: Secure user login and registration with JWT authentication.
+- **User Authentication**: Secure user login and registration.
 - **Task Management**: Users can create, view, update, and delete tasks. Each task can have a status of pending, submitted, or done.
 - **File Upload and Download**: Users can upload files related to tasks and download them when needed.
 - **User-specific Tasks**: Fetch tasks specific to the logged-in user, ensuring personalized task management.
@@ -14,7 +14,7 @@ This Task Management application is a comprehensive tool designed to help users 
 
 ## Technologies Used
 
-- **Frontend**: React Native
+- **Frontend**: React.js
 - **Backend**: Express.js
 - **Database**: MongoDB
 - **File Handling**: Multer for file uploads
