@@ -146,7 +146,7 @@ const Report = () => {
         <Title level={2} align="center" style={{paddingTop: 0}}>
           Laporan
         </Title>
-        <Button type="primary" onClick={() => generatePDF(targetRef, options)}>
+        <Button type="primary" onClick={() => generatePDF(targetRef, options)} style={{fontWeight: "500"}}>
           Download Laporan
         </Button>
       </Flex>

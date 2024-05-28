@@ -51,13 +51,20 @@ const WorkerList = () => {
   };
   ////////////////////////////////
 
-  const handleDelete = (_id) => {
-    axios
-      .delete(`http://localhost:5000/delete/${_id}`)
-      .then((result) => {
-        location.reload();
-      })
-      .catch((err) => console.log("Error", err));
+  const handleDelete = async (_id) => {
+    // axios
+    //   .delete(`http://localhost:5000/delete/${_id}`)
+    //   .then((result) => {
+    //     location.reload();
+    //   })
+    //   .catch((err) => console.log("Error", err));
+    try {
+      await axios.delete(`http://localhost:5000/delete/${_id}`)
+      const result = await axios.get("http://localhost:5000/get");
+      setWorker(result.data);
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   const handleEdit = () => {

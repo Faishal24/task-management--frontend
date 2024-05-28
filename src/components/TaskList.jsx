@@ -80,20 +80,22 @@ const TaskList = () => {
       .catch((err) => console.log("Error:", err));
   };
 
-  const deleteTask = (index) => {
-    const updatedDesc = [...selectedTask.tasks];
-    updatedDesc.splice(index, 1);
-    axios
-      .put(`http://localhost:5000/update/task/${selectedTask._id}`, {
+  const deleteTask = async (index) => {
+    try {
+      const updatedDesc = [...selectedTask.tasks];
+      updatedDesc.splice(index, 1);
+  
+      const result = await axios.put(`http://localhost:5000/update/task/${selectedTask._id}`, {
         tasks: updatedDesc,
-      })
-      .then((result) => {
-        console.log(result);
-        location.reload();
-      })
-      .catch((err) => {
-        console.log("Error", err);
       });
+  
+      console.log(result);
+      const response = await axios.get("http://localhost:5000/get");
+      setTasks(response.data);
+      setIsModalOpen(false)
+    } catch (err) {
+      console.error("Error", err);
+    }
   };
 
   const navigation = useNavigate();

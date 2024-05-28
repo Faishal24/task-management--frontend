@@ -11,10 +11,15 @@ const AddTask = () => {
   const [selectedWorker, setselectedWorker] = useState("");
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/get")
-      .then((result) => setTasks(result.data))
-      .catch((err) => console.log(err));
+    async function fetchData() {
+      try {
+        const response = await axios.get("http://localhost:5000/get");
+        setTasks(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
   }, []);
 
   const handleDateChange = (date, dateString) => {
@@ -22,11 +27,13 @@ const AddTask = () => {
     setDate(formattedDate);
   };
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
+  try {
     console.log(selectedWorker);
+
     const uuid = Date.now();
-    let fullDate = new Date()
-    let today = `${fullDate.getDate()}-${fullDate.getMonth()+1}-${fullDate.getFullYear()}`
+    let fullDate = new Date();
+    let today = `${fullDate.getDate()}-${fullDate.getMonth() + 1}-${fullDate.getFullYear()}`;
 
     const newTask = {
       taskId: uuid,
@@ -35,35 +42,35 @@ const AddTask = () => {
       dueTo: date,
       content: desc,
     };
+
     console.log(newTask);
 
-    axios.get(`http://localhost:5000/get/`).then((response) => {
-      const workers = response.data;
-      console.log(
-        `Dipilih: ${selectedWorker}\nTugas: ${newTask.description}\nTenggat: ${date}`
-      );
+    const response = await axios.get(`http://localhost:5000/get/`);
+    const workers = response.data;
 
-      const worker = Object.values(workers).find(
-        (worker) => worker.name == selectedWorker
-      );
-      // console.log(workers);
+    console.log(`Dipilih: ${selectedWorker}\nTugas: ${newTask.description}\nTenggat: ${date}`);
 
-      if (worker) {
-        console.log("Karyawan Ditemukan");
-        worker.tasks.push(newTask);
-        axios
-          .put(`http://localhost:5000/update/task/${worker._id}`, worker)
-          .then((result) => {
-            console.log("Berhasil ditambahkan");
-            console.log(result);
-            location.reload();
-          })
-          .catch((err) => console.error("Error adding task:", err));
-      } else {
-        console.log("Karyawan tidak ditemukan");
+    const worker = Object.values(workers).find(worker => worker.name === selectedWorker);
+
+    if (worker) {
+      console.log("Karyawan Ditemukan");
+      worker.tasks.push(newTask);
+
+      try {
+        await axios.put(`http://localhost:5000/update/task/${worker._id}`, worker);
+        location.reload()
+      } catch (error) {
+        console.error("Error updating task:", error);
       }
-    });
-  };
+
+    } else {
+      console.log("Karyawan tidak ditemukan");
+    }
+  } catch (error) {
+    console.error("Error fetching workers:", error);
+  }
+};
+
   return (
     <>
       <Title level={3}>Tambah Tugas</Title>
