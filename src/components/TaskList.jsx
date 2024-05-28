@@ -84,15 +84,18 @@ const TaskList = () => {
     try {
       const updatedDesc = [...selectedTask.tasks];
       updatedDesc.splice(index, 1);
-  
-      const result = await axios.put(`http://localhost:5000/update/task/${selectedTask._id}`, {
-        tasks: updatedDesc,
-      });
-  
+
+      const result = await axios.put(
+        `http://localhost:5000/update/task/${selectedTask._id}`,
+        {
+          tasks: updatedDesc,
+        }
+      );
+
       console.log(result);
       const response = await axios.get("http://localhost:5000/get");
       setTasks(response.data);
-      setIsModalOpen(false)
+      setIsModalOpen(false);
     } catch (err) {
       console.error("Error", err);
     }
@@ -103,6 +106,8 @@ const TaskList = () => {
     navigation("/detail", { state: record });
   };
 
+  const skeletons = [1, 2, 3, 4, 5, 6];
+
   const test = () => {
     console.log("==============Test==============");
   };
@@ -111,33 +116,22 @@ const TaskList = () => {
     <div className="cards">
       {loading ? (
         <>
-          <Card
-            style={{
-              marginTop: 16,
-              width: 260,
-              height: 200,
-            }}
-          >
-            <Skeleton active title={{ width: "20%" }} paragraph={{ rows: 3 }} />
-          </Card>
-          <Card
-            style={{
-              marginTop: 16,
-              width: 260,
-              height: 200,
-            }}
-          >
-            <Skeleton active title={{ width: "20%" }} paragraph={{ rows: 3 }} />
-          </Card>
-          <Card
-            style={{
-              marginTop: 16,
-              width: 260,
-              height: 200,
-            }}
-          >
-            <Skeleton active title={{ width: "20%" }} paragraph={{ rows: 3 }} />
-          </Card>
+          {skeletons.map((_, index) => (
+            <Card
+              key={index}
+              style={{
+                marginTop: 16,
+                width: 260,
+                height: 200,
+              }}
+            >
+              <Skeleton
+                active
+                title={{ width: "20%" }}
+                paragraph={{ rows: 3 }}
+              />
+            </Card>
+          ))}
         </>
       ) : (
         tasks.map((task) => (
