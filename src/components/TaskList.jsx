@@ -12,7 +12,7 @@ import {
   Divider,
   ConfigProvider,
   Progress,
-  Popconfirm,
+  Skeleton,
 } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 
@@ -22,6 +22,7 @@ const TaskList = () => {
   const [selectedTask, setSelectedTask] = React.useState([]);
   const [tasks, setTasks] = useState([]);
   const [edit, setEdit] = useState(false);
+  const [loading, isLoading] = useState(false);
 
   ///////// Modal /////////
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,10 +37,18 @@ const TaskList = () => {
   /////////////////////////
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/get")
-      .then((result) => setTasks(result.data))
-      .catch((err) => console.log(err));
+    const fetchData = async () => {
+      try {
+        isLoading(true);
+        const response = await axios.get("http://localhost:5000/get");
+        setTasks(response.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        isLoading(false);
+      }
+    };
+    fetchData();
   }, []);
 
   const handleEdit = () => {
@@ -66,11 +75,11 @@ const TaskList = () => {
       })
       .then((result) => {
         location.reload();
-        console.log(selectedTask.tasks)
+        console.log(selectedTask.tasks);
       })
       .catch((err) => console.log("Error:", err));
   };
-  
+
   const deleteTask = (index) => {
     const updatedDesc = [...selectedTask.tasks];
     updatedDesc.splice(index, 1);
@@ -87,10 +96,10 @@ const TaskList = () => {
       });
   };
 
-  const navigation = useNavigate()
+  const navigation = useNavigate();
   const pindah = (record) => {
-    navigation('/detail', {state: record})
-  }
+    navigation("/detail", { state: record });
+  };
 
   const test = () => {
     console.log("==============Test==============");
@@ -98,8 +107,36 @@ const TaskList = () => {
 
   return (
     <div className="cards">
-      {tasks.length === 0 ? (
-        <p>Belum ada karyawan.</p>
+      {loading ? (
+        <>
+          <Card
+            style={{
+              marginTop: 16,
+              width: 260,
+              height: 200,
+            }}
+          >
+            <Skeleton active title={{ width: "20%" }} paragraph={{ rows: 3 }} />
+          </Card>
+          <Card
+            style={{
+              marginTop: 16,
+              width: 260,
+              height: 200,
+            }}
+          >
+            <Skeleton active title={{ width: "20%" }} paragraph={{ rows: 3 }} />
+          </Card>
+          <Card
+            style={{
+              marginTop: 16,
+              width: 260,
+              height: 200,
+            }}
+          >
+            <Skeleton active title={{ width: "20%" }} paragraph={{ rows: 3 }} />
+          </Card>
+        </>
       ) : (
         tasks.map((task) => (
           <Card
@@ -180,7 +217,9 @@ const TaskList = () => {
                 <Button key="back" onClick={handleEdit}>
                   Ubah
                 </Button>
-                <Button type="primary" onClick={() => pindah(selectedTask)}>Detail Tugas</Button>
+                <Button type="primary" onClick={() => pindah(selectedTask)}>
+                  Detail Tugas
+                </Button>
               </>
             )}
           </Space>,
