@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Table, Tag, Typography } from "antd";
+import { Card, Table, Tag, Typography, Skeleton } from "antd";
 import axios from "axios";
 
 const { Title } = Typography;
@@ -25,11 +25,22 @@ const columns = [
 ];
 
 const DueTask = () => {
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/get")
-      .then((result) => setTasks(result.data));
-  });
+    async function fetchData() {
+      try{
+        setLoading(true)
+        const response = await axios.get("http://localhost:5000/get")
+        setTasks(response.data)
+      } catch (error) {
+        console.error(error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchData();
+  }, []); 
 
   const [tasks, setTasks] = useState([]);
 
@@ -75,11 +86,16 @@ const DueTask = () => {
         <Title level={4} style={{ marginTop: "0px", fontWeight: "bold" }} onClick={test}>
           Tugas mendatang
         </Title>
+        {loading ? (
+          <Skeleton active title={false} paragraph={{rows: 3}}/>
+        ) : (
+
         <Table
           columns={columns}
           dataSource={joinedArrayOrder.slice(0, 3)}
           pagination={{ position: [] }}
         />
+        )}
       </Card>
       {/* <button onClick={test}>T</button> */}
     </div>
