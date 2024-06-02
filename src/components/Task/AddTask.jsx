@@ -28,48 +28,57 @@ const AddTask = () => {
   };
 
   const handleAdd = async () => {
-  try {
-    console.log(selectedWorker);
+    try {
+      console.log(selectedWorker);
 
-    const uuid = Date.now();
-    let fullDate = new Date();
-    let today = `${fullDate.getDate()}-${fullDate.getMonth() + 1}-${fullDate.getFullYear()}`;
+      const uuid = Date.now();
+      const fullDate = new Date();
+      const day = String(fullDate.getDate()).padStart(2, "0");
+      const month = String(fullDate.getMonth() + 1).padStart(2, "0");
+      const year = fullDate.getFullYear();
+      const today = `${day}-${month}-${year}`;
 
-    const newTask = {
-      taskId: uuid,
-      description: task,
-      createdAt: today,
-      dueTo: date,
-      content: desc,
-    };
+      const newTask = {
+        taskId: uuid,
+        description: task,
+        createdAt: today,
+        dueTo: date,
+        content: desc,
+      };
 
-    console.log(newTask);
+      console.log(today);
 
-    const response = await axios.get(`http://localhost:5000/get/`);
-    const workers = response.data;
+      const response = await axios.get(`http://localhost:5000/get/`);
+      const workers = response.data;
 
-    console.log(`Dipilih: ${selectedWorker}\nTugas: ${newTask.description}\nTenggat: ${date}`);
+      console.log(
+        `Dipilih: ${selectedWorker}\nTugas: ${newTask.description}\nTenggat: ${date}`
+      );
 
-    const worker = Object.values(workers).find(worker => worker.name === selectedWorker);
+      const worker = Object.values(workers).find(
+        (worker) => worker.name === selectedWorker
+      );
 
-    if (worker) {
-      console.log("Karyawan Ditemukan");
-      worker.tasks.push(newTask);
+      if (worker) {
+        console.log("Karyawan Ditemukan");
+        worker.tasks.push(newTask);
 
-      try {
-        await axios.put(`http://localhost:5000/update/task/${worker._id}`, worker);
-        location.reload()
-      } catch (error) {
-        console.error("Error updating task:", error);
+        try {
+          await axios.put(
+            `http://localhost:5000/update/task/${worker._id}`,
+            worker
+          );
+          location.reload();
+        } catch (error) {
+          console.error("Error updating task:", error);
+        }
+      } else {
+        console.log("Karyawan tidak ditemukan");
       }
-
-    } else {
-      console.log("Karyawan tidak ditemukan");
+    } catch (error) {
+      console.error("Error fetching workers:", error);
     }
-  } catch (error) {
-    console.error("Error fetching workers:", error);
-  }
-};
+  };
 
   return (
     <>
