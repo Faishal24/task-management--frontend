@@ -18,19 +18,19 @@ const TaskDetail = () => {
   const navigation = useNavigate();
 
   const updateTaskStatus = (index) => {
-    const updatedTask = { ...data.tasks[index], status: "done" };
-    const updatedTasks = [...data.tasks];
-    updatedTasks[index] = updatedTask;
-    console.log(updatedTasks);
+    // Buat objek baru hanya dengan atribut status yang diubah
+    const updatedTask = { status: "done" };
+    
+    // Dapatkan ID tugas yang akan diperbarui
+    const taskId = data.tasks[index].taskId;
     axios
-      .put(`http://localhost:5000/update/task/${data._id}`, {
-        tasks: updatedTasks,
-      })
+      .put(`http://localhost:5000/update/task/${data._id}/${taskId}`, updatedTask)
       .then(() => {
         navigation("/tugas");
       })
       .catch((err) => console.log("Error:", err));
   };
+  
 
   const handleEdit = (index) => {
     setEditIndex(index);
