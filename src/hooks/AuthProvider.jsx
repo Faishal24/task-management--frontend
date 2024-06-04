@@ -6,7 +6,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem("site") || "");
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
   const loginAction = async (data) => {
@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
         const userData = res.data;
         setUser(userData.user);
         setToken(userData.token);
-        localStorage.setItem("site", userData.token);
+        localStorage.setItem("token", userData.token);
         navigate("/");
         return;
       }
@@ -38,7 +38,7 @@ const AuthProvider = ({ children }) => {
   const logOut = () => {
     setUser(null);
     setToken("");
-    localStorage.removeItem("site");
+    localStorage.removeItem("token");
     navigate("/");
   };
 

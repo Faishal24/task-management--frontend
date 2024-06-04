@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -16,6 +16,8 @@ import Worker from "./Worker";
 import TaskDetail from "./TaskDetail";
 import Profile from "./Profile";
 import Report from "./Report";
+import { jwtDecode } from "jwt-decode";
+import { useAuth } from "../hooks/AuthProvider";
 
 const { Header, Sider, Content } = Layout;
 
@@ -24,6 +26,31 @@ const Home = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  // JWT check
+  const { token, logOut } = useAuth();
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    const checkToken = () => {
+      if (token) {
+        try {
+          const decoded = jwtDecode(token);
+          if (decoded.exp * 1000 < Date.now()) {
+            logOut();
+          } else {
+            setIsAuth(true);
+          }
+        } catch (error) {
+          console.error("Token tidak valid", error);
+          logOut();
+        }
+      } else {
+        setIsAuth(false);
+      }
+    }
+    checkToken();
+  }, [token, logOut]);
   return (
     <Layout hasSider>
       <Sider
