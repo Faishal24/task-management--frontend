@@ -40,7 +40,7 @@ const TaskList = () => {
     const fetchData = async () => {
       try {
         isLoading(true);
-        const response = await axios.get(`http://${import.meta.env.VITE_API_URL}/get`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/get`);
         setTasks(response.data);
       } catch (error) {
         console.log(error);
@@ -70,7 +70,7 @@ const TaskList = () => {
 
   const handleSave = () => {
     axios
-      .put(`http://${import.meta.env.VITE_API_URL}/update/task/${selectedTask._id}`, {
+      .put(`${import.meta.env.VITE_API_URL}/update/task/${selectedTask._id}`, {
         tasks: selectedTask.tasks,
       })
       .then((result) => {
@@ -86,14 +86,14 @@ const TaskList = () => {
       updatedDesc.splice(index, 1);
 
       const result = await axios.put(
-        `http://${import.meta.env.VITE_API_URL}/update/task/${selectedTask._id}`,
+        `${import.meta.env.VITE_API_URL}/update/task/${selectedTask._id}`,
         {
           tasks: updatedDesc,
         }
       );
 
       console.log(result);
-      const response = await axios.get(`http://${import.meta.env.VITE_API_URL}/get`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/get`);
       setTasks(response.data);
       setIsModalOpen(false);
     } catch (err) {

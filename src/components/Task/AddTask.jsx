@@ -13,7 +13,7 @@ const AddTask = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(`http://${import.meta.env.VITE_API_URL}/get`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/get`);
         setTasks(response.data);
       } catch (error) {
         console.log(error);
@@ -48,7 +48,7 @@ const AddTask = () => {
 
       console.log(today);
 
-      const response = await axios.get(`http://${import.meta.env.VITE_API_URL}/get/`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/get/`);
       const workers = response.data;
 
       console.log(
@@ -65,7 +65,7 @@ const AddTask = () => {
 
         try {
           await axios.put(
-            `http://${import.meta.env.VITE_API_URL}/update/task/${worker._id}`,
+            `${import.meta.env.VITE_API_URL}/update/task/${worker._id}`,
             worker
           );
           location.reload();

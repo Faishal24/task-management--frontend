@@ -24,7 +24,7 @@ const AddWorker = () => {
 
   const handleAddWorker = () => {
     axios
-      .post(`http://${import.meta.env.VITE_API_URL}/add`, karyawan)
+      .post(`${import.meta.env.VITE_API_URL}/add`, karyawan)
       .then((result) => {
         console.log("Berhasil");
         location.reload();
