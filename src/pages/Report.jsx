@@ -125,7 +125,7 @@ const Report = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/get")
+      .get(`http://${import.meta.env.VITE_API_URL}/get`)
       .then((result) => setWorkers(result.data));
   });
 

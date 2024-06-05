@@ -53,14 +53,14 @@ const WorkerList = () => {
 
   const handleDelete = async (_id) => {
     // axios
-    //   .delete(`http://localhost:5000/delete/${_id}`)
+    //   .delete(`http://${import.meta.env.VITE_API_URL}/delete/${_id}`)
     //   .then((result) => {
     //     location.reload();
     //   })
     //   .catch((err) => console.log("Error", err));
     try {
-      await axios.delete(`http://localhost:5000/delete/${_id}`)
-      const result = await axios.get("http://localhost:5000/get");
+      await axios.delete(`http://${import.meta.env.VITE_API_URL}/delete/${_id}`)
+      const result = await axios.get(`http://${import.meta.env.VITE_API_URL}/get`);
       setWorker(result.data);
     } catch (error) {
       console.log(error)
@@ -71,7 +71,7 @@ const WorkerList = () => {
     delete input.__v
     delete input.index
     axios
-      .put(`http://localhost:5000/update/user/${input._id}`, input)
+      .put(`http://${import.meta.env.VITE_API_URL}/update/user/${input._id}`, input)
       .then(() => {
         location.reload();
       })
@@ -209,7 +209,7 @@ const WorkerList = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("http://localhost:5000/get");
+        const response = await axios.get(`http://${import.meta.env.VITE_API_URL}/get`);
         setWorker(response.data);
       } catch (error) {
         console.log(error);

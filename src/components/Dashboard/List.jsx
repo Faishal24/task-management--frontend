@@ -29,7 +29,7 @@ const List = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/get")
+      .get(`http://${import.meta.env.VITE_API_URL}/get`)
       .then((result) => setTasks(result.data))
       .catch((err) => console.log(err));
   }, []);

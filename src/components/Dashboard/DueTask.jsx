@@ -31,7 +31,7 @@ const DueTask = () => {
     async function fetchData() {
       try{
         setLoading(true)
-        const response = await axios.get("http://localhost:5000/get")
+        const response = await axios.get(`http://${import.meta.env.VITE_API_URL}/get`)
         setTasks(response.data)
       } catch (error) {
         console.error(error)

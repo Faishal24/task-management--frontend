@@ -24,7 +24,7 @@ const TaskDetail = () => {
     // Dapatkan ID tugas yang akan diperbarui
     const taskId = data.tasks[index].taskId;
     axios
-      .put(`http://localhost:5000/update/task/${data._id}/${taskId}`, updatedTask)
+      .put(`http://${import.meta.env.VITE_API_URL}/update/task/${data._id}/${taskId}`, updatedTask)
       .then(() => {
         navigation("/tugas");
       })
@@ -44,7 +44,7 @@ const TaskDetail = () => {
       newData[index].content = editedDesc;
 
       axios
-        .put(`http://localhost:5000/update/task/${data._id}`, {
+        .put(`http://${import.meta.env.VITE_API_URL}/update/task/${data._id}`, {
           tasks: newData,
         })
         .then((result) => {
@@ -60,7 +60,7 @@ const TaskDetail = () => {
   const handleDownload = async (taskId) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/download/${taskId}`,
+        `http://${import.meta.env.VITE_API_URL}/download/${taskId}`,
         {
           responseType: "blob", // Mengatur responseType sebagai blob agar dapat mengunduh file
         }
