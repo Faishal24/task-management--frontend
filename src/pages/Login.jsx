@@ -12,7 +12,7 @@ const Login = () => {
   const { token } = useToken();
   const screens = useBreakpoint();
   const [input, setInput] = useState({
-    name: "",
+    email: "",
     password: "",
   });
 
@@ -52,7 +52,7 @@ const Login = () => {
 
   const auth = useAuth();
   const handleSubmit = () => {
-    if (input.name !== "" && input.password !== "") {
+    if (input.email !== "" && input.password !== "") {
       auth.loginAction(input)
       auth.message()
       return;
@@ -99,8 +99,8 @@ const Login = () => {
             >
               <Input
                 prefix={<UserOutlined />}
-                placeholder="Nama"
-                name="name"
+                placeholder="Email"
+                name="email"
                 onChange={handleInput}
                 // onChange={(e) => setUsername(e.target.value)}
               />
