@@ -4,6 +4,7 @@ import {
   DownloadOutlined,
   CheckOutlined,
   EditOutlined,
+  CloseOutlined
 } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -17,14 +18,21 @@ const TaskDetail = () => {
   const data = locationD.state;
   const navigation = useNavigate();
 
-  const updateTaskStatus = (index) => {
-    // Buat objek baru hanya dengan atribut status yang diubah
-    const updatedTask = { status: "done" };
-    
-    // Dapatkan ID tugas yang akan diperbarui
+  const updateStatusDone = (index) => {
     const taskId = data.tasks[index].taskId;
     axios
-      .put(`${import.meta.env.VITE_API_URL}/update/task/${data._id}/${taskId}`, updatedTask)
+      .put(`${import.meta.env.VITE_API_URL}/update/task/${data._id}/${taskId}`)
+      .then(() => {
+        navigation("/tugas");
+      })
+      .catch((err) => console.log("Error:", err));
+  };
+
+  const updateStatusPending = (index) => {
+    
+    const taskId = data.tasks[index].taskId;
+    axios
+      .put(`${import.meta.env.VITE_API_URL}/delete/task/${data._id}/${taskId}`)
       .then(() => {
         navigation("/tugas");
       })
@@ -152,10 +160,18 @@ const TaskDetail = () => {
               </Tooltip>
             ) : null,
             item.status === "submitted" ? (
+              <Tooltip title="Tolak tugas">
+                <CloseOutlined
+                  style={{ fontSize: 20 }}
+                  onClick={() => updateStatusPending(index)}
+                />
+              </Tooltip>
+            ) : null,
+            item.status === "submitted" ? (
               <Tooltip title="Setujui tugas">
                 <CheckOutlined
                   style={{ fontSize: 20 }}
-                  onClick={() => updateTaskStatus(index)}
+                  onClick={() => updateStatusDone(index)}
                 />
               </Tooltip>
             ) : null,
