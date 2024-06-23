@@ -4,6 +4,10 @@
 
 This Task Management application is a comprehensive tool designed to help users manage their tasks efficiently. It provides features for creating, assigning, tracking, and updating tasks. The application is built with a React.js frontend and an Express.js backend, using MongoDB for data storage.
 
+## Screenshots
+![Screenshot_2024-05-15_13-54-26](https://github.com/Faishal24/task-management--frontend/assets/32897697/4750f835-b92b-4daf-8625-9bdba47af44a)
+
+
 ## Features
 
 - **User Authentication**: Secure user login and registration.
