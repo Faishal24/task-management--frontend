@@ -6,7 +6,8 @@ This Task Management application is a comprehensive tool designed to help users 
 
 ## Screenshots
 ![Screenshot_2024-05-15_13-54-26](https://github.com/Faishal24/task-management--frontend/assets/32897697/4750f835-b92b-4daf-8625-9bdba47af44a)
-
+![Screenshot_2024-05-08_13-40-07](https://github.com/Faishal24/task-management--frontend/assets/32897697/af35a01a-68d7-4028-8867-40e1d7aa073a)
+![Screenshot_2024-05-15_14-01-38](https://github.com/Faishal24/task-management--frontend/assets/32897697/39db81d7-1f4c-4588-8d5b-98d079c23377)
 
 ## Features
 
