@@ -76,7 +76,7 @@ const Login = () => {
           type="error"
           className="alert"/>
           <div style={styles.header}>
-            <Title style={styles.title}>Sign in</Title>
+            <Title style={styles.title}>Masuk</Title>
             <Text style={styles.text}>Selamat datang kembali.</Text>
           </div>
           <Form
@@ -133,7 +133,7 @@ const Login = () => {
             </Form.Item>
             <Form.Item style={{ marginBottom: "0px" }}>
               <Button block="true" type="primary" htmlType="submit">
-                Login
+                Masuk
               </Button>
               <div style={styles.footer}></div>
             </Form.Item>
