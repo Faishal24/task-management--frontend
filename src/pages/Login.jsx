@@ -23,6 +23,8 @@ const Login = () => {
         ? `${token.paddingXL}px`
         : `${token.sizeXXL}px ${token.padding}px`,
       width: "380px",
+      border: `1px solid ${token.colorBorder}`,
+      borderRadius: token.borderRadius,
     },
     footer: {
       marginTop: token.marginLG,
