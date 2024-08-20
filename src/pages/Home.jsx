@@ -6,6 +6,7 @@ import {
   BookOutlined,
   DashboardOutlined,
   FolderOpenOutlined,
+  SettingOutlined
 } from "@ant-design/icons";
 import { Layout, Menu, Button, theme } from "antd";
 import Task from "./Task";
@@ -82,6 +83,9 @@ const Home = () => {
           </Menu.Item>
           <Menu.Item key="5" icon={<BookOutlined />}>
             <Link to="/laporan">Laporan</Link>
+          </Menu.Item>
+          <Menu.Item key="6" icon={<SettingOutlined />}>
+            <Link to="/">Pengaturan</Link>
           </Menu.Item>
         </Menu>
       </Sider>
