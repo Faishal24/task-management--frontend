@@ -85,7 +85,7 @@ const Home = () => {
             <Link to="/laporan">Laporan</Link>
           </Menu.Item>
           <Menu.Item key="6" icon={<SettingOutlined />}>
-            <Link to="/">Pengaturan</Link>
+            <Link to="/pengaturan">Pengaturan</Link>
           </Menu.Item>
         </Menu>
       </Sider>
