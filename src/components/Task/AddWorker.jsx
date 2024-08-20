@@ -9,9 +9,9 @@ const AddWorker = () => {
     name: "",
     age: "",
     address: "",
-    gender: "",
+    gender: "Laki-laki",
     phone: "",
-    devision: "",
+    devision: "Keuangan",
   });
 
   const handleInputChange = (e) => {
@@ -26,7 +26,7 @@ const AddWorker = () => {
     axios
       .post(`${import.meta.env.VITE_API_URL}/add`, karyawan)
       .then((result) => {
-        console.log("Berhasil");
+        console.log("Berhasil: ", result);
         location.reload();
       })
       .catch((err) => console.log(err));
@@ -64,7 +64,6 @@ const AddWorker = () => {
           className="inputWorker"
           type="text"
           name="gender"
-          placeholder="Jenis Kelamin"
           value={karyawan.gender}
           onChange={(value) =>
             setKaryawan((prevKaryawan) => ({
