@@ -73,7 +73,7 @@ const Profile = () => {
     <>
       <div style={{ display: "flex", justifyContent: "center", marginBottom: "2em" }}>
         <Image
-          width={300}
+          width={250}
           src={`https://ui-avatars.com/api/?size=300&name=${location.state.name}`}
           style={{
             borderRadius: "50%",
