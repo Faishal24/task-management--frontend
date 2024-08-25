@@ -19,6 +19,7 @@ import Profile from "./Profile";
 import Report from "./Report";
 import { jwtDecode } from "jwt-decode";
 import { useAuth } from "../hooks/AuthProvider";
+import Setting from "./Setting";
 
 const { Header, Sider, Content } = Layout;
 
@@ -99,7 +100,7 @@ const Home = () => {
             padding: 0,
             background: colorBgContainer,
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "center",
             alignItems: "center",
           }}
         >
@@ -113,9 +114,9 @@ const Home = () => {
               height: 64,
             }}
           /> */}
-          <p></p>
+          
           <h2>Task Management</h2>
-          <BtnLogout />
+          
         </Header>
         <Content
           style={{
@@ -133,6 +134,7 @@ const Home = () => {
             <Route path="/detail" element={<TaskDetail />} />
             <Route path="/profil" element={<Profile />} />
             <Route path="/laporan" element={<Report />} />
+            <Route path="/pengaturan" element={<Setting />} />
           </Routes>
         </Content>
       </Layout>
