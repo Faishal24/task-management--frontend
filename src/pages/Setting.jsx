@@ -24,7 +24,7 @@ const Setting = () => {
   return (
     <div>
       <BtnLogout />
-      <p>{user.name}</p>
+      <p>{user?.name || "Loading..."}</p>
     </div>
   );
 };
