@@ -20,6 +20,7 @@ import Report from "./Report";
 import { jwtDecode } from "jwt-decode";
 import { useAuth } from "../hooks/AuthProvider";
 import Setting from "./Setting";
+import BtnLogout from "../components/BtnLogout";
 
 const { Header, Sider, Content } = Layout;
 
@@ -116,6 +117,7 @@ const Home = () => {
           /> */}
           
           <h2>Task Management</h2>
+          <BtnLogout />
           
         </Header>
         <Content
