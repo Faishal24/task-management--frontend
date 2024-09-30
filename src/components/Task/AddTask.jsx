@@ -10,15 +10,16 @@ const AddTask = () => {
   const [desc, setDesc] = useState("");
   const [selectedWorker, setselectedWorker] = useState("");
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/get`);
-        setTasks(response.data);
-      } catch (error) {
-        console.log(error);
-      }
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/get`);
+      setTasks(response.data);
+    } catch (error) {
+      console.log(error);
     }
+  }
+
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -68,7 +69,8 @@ const AddTask = () => {
             `${import.meta.env.VITE_API_URL}/update/task/${worker._id}`,
             worker
           );
-          location.reload();
+          // location.reload();
+          fetchData();
         } catch (error) {
           console.error("Error updating task:", error);
         }

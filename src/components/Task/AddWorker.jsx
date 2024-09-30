@@ -9,7 +9,7 @@ const AddWorker = () => {
     name: "",
     age: "",
     address: "",
-    gender: "Laki-laki",
+    gender: "male",
     phone: "",
     devision: "Keuangan",
   });
