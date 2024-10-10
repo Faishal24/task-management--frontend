@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { ConfigProvider, Image, Space, Table, Tag } from "antd";
+import React from "react";
+import { ConfigProvider, Image, Table } from "antd";
 import { useLocation } from "react-router-dom";
 
 const Profile = () => {

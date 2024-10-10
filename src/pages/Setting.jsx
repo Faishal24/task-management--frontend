@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BtnLogout from "../components/BtnLogout";
 import axios from "axios";
-import { Flex, Typography, Switch, Space } from "antd";
+import { Typography, Switch, Space } from "antd";
 
 const Setting = () => {
   const [user, setUser] = useState(null);

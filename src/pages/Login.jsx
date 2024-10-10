@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Alert, Button, Checkbox, Form, Grid, Input, theme, Typography } from "antd";
-import { LockOutlined, UserOutlined, CloseSquareFilled } from "@ant-design/icons";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import "../style/Login.css"
 import { useAuth } from "../hooks/AuthProvider";
 

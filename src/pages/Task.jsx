@@ -7,7 +7,6 @@ import { Typography, Skeleton } from "antd";
 const Task = () => {
   return (
     <>
-
       <div className="container">
         <Create />
         <TaskList />

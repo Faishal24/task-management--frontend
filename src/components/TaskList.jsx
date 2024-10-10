@@ -16,7 +16,7 @@ import {
 } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 const TaskList = () => {
   const [selectedTask, setSelectedTask] = React.useState([]);

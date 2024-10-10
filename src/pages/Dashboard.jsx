@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Typography } from "antd";
 import "../style/Dashboard.css";
 import List from "../components/Dashboard/List";
