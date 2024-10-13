@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
   UserOutlined,
   BookOutlined,
   DashboardOutlined,
