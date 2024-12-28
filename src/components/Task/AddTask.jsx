@@ -69,7 +69,7 @@ const AddTask = () => {
             `${import.meta.env.VITE_API_URL}/update/task/${worker._id}`,
             worker
           );
-          // location.reload();
+          location.reload();
           fetchData();
         } catch (error) {
           console.error("Error updating task:", error);
