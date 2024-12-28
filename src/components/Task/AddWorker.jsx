@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Input, Button, Select, Space, Typography } from "antd";
+import { Input, Button, Select, Space, Typography, message } from "antd";
 
 const { Title } = Typography;
 
@@ -11,8 +11,16 @@ const AddWorker = () => {
     address: "",
     gender: "male",
     phone: "",
-    devision: "Keuangan",
+    devision: "keuangan",
   });
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const error = () => {
+    messageApi.open({
+      type: 'error',
+      content: 'Semua kolom harus diisi!',
+    });
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -23,17 +31,33 @@ const AddWorker = () => {
   };
 
   const handleAddWorker = () => {
-    axios
+    if (
+      !karyawan.name ||
+      !karyawan.age ||
+      !karyawan.address ||
+      !karyawan.phone ||
+      !karyawan.email ||
+      !karyawan.devision
+    ) {
+      error();
+      return;
+    }
+    try {
+      axios
       .post(`${import.meta.env.VITE_API_URL}/add`, karyawan)
       .then((result) => {
         console.log("Berhasil: ", result);
         location.reload();
       })
       .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <>
+      {contextHolder}
       <Title level={3}>Tambah Karyawan</Title>
       <Space direction="vertical" size={20}>
         <Input

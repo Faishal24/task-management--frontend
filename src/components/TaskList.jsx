@@ -9,6 +9,7 @@ import {
   Input,
   List,
   Card,
+  message,
   Divider,
   ConfigProvider,
   Progress,
@@ -23,6 +24,14 @@ const TaskList = () => {
   const [tasks, setTasks] = useState([]);
   const [edit, setEdit] = useState(false);
   const [loading, isLoading] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'Berhasil menghapus tugas',
+    });
+  };
 
   ///////// Modal /////////
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -95,6 +104,7 @@ const TaskList = () => {
       console.log(result);
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/get`);
       setTasks(response.data);
+      success();
       setIsModalOpen(false);
     } catch (err) {
       console.error("Error", err);
@@ -114,6 +124,7 @@ const TaskList = () => {
 
   return (
     <div className="cards">
+      {contextHolder}
       {loading ? (
         <>
           {skeletons.map((_, index) => (

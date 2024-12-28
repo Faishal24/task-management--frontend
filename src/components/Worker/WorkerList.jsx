@@ -11,6 +11,7 @@ import {
   Modal,
   Input,
   InputNumber,
+  message,
   Button,
   Typography,
 } from "antd";
@@ -27,6 +28,7 @@ const WorkerList = () => {
     ...item,
     index: index + 1,
   }));
+  const [messageApi, contextHolder] = message.useMessage();
 
   ///////////// Modal /////////////
   const showModal = (record) => {
@@ -51,6 +53,13 @@ const WorkerList = () => {
   };
   ////////////////////////////////
 
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'Berhasil menghapus data karyawan!',
+    });
+  };
+
   const handleDelete = async (_id) => {
     // axios
     //   .delete(`${import.meta.env.VITE_API_URL}/delete/${_id}`)
@@ -62,6 +71,7 @@ const WorkerList = () => {
       await axios.delete(`${import.meta.env.VITE_API_URL}/delete/${_id}`)
       const result = await axios.get(`${import.meta.env.VITE_API_URL}/get`);
       setWorker(result.data);
+      success()
     } catch (error) {
       console.log(error)
     }
@@ -222,6 +232,7 @@ const WorkerList = () => {
 
   return (
     <>
+      {contextHolder}
       <div className="table">
         {/* <Skeleton loading={loading} active> */}
         <Table

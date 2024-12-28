@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { DatePicker, Input, Select, Button, Space, Typography } from "antd";
+import { DatePicker, Input, Select, Button, Space, Typography, message } from "antd";
 const { Title } = Typography;
 
 const AddTask = () => {
@@ -9,6 +9,7 @@ const AddTask = () => {
   const [date, setDate] = useState("");
   const [desc, setDesc] = useState("");
   const [selectedWorker, setselectedWorker] = useState("");
+  const [messageApi, contextHolder] = message.useMessage();
 
   const fetchData = async () => {
     try {
@@ -18,6 +19,13 @@ const AddTask = () => {
       console.log(error);
     }
   }
+
+  const error = () => {
+    messageApi.open({
+      type: 'error',
+      content: 'Semua kolom harus diisi!',
+    });
+  };
 
   useEffect(() => {
     fetchData();
@@ -29,6 +37,11 @@ const AddTask = () => {
   };
 
   const handleAdd = async () => {
+    if (!task || !date || !desc || !selectedWorker) {
+      error();
+      return;
+    }
+
     try {
       console.log(selectedWorker);
 
@@ -84,6 +97,7 @@ const AddTask = () => {
 
   return (
     <>
+      {contextHolder}
       <Title level={3}>Tambah Tugas</Title>
 
       <Space direction="vertical" size>
