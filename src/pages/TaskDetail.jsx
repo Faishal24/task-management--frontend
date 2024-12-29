@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Card, Input, Space, Typography, Tag, Tooltip } from "antd";
+import React, { useEffect, useState } from "react";
+import { Card, Input, Space, Typography, Tag, Tooltip, message } from "antd";
 import {
   DownloadOutlined,
   CheckOutlined,
@@ -16,29 +16,57 @@ const TaskDetail = () => {
   const [editedDesc, setEditedDesc] = useState("");
   const locationD = useLocation();
   const data = locationD.state;
+  const [newData, setNewData] = useState()
   const navigation = useNavigate();
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const toast = (text) => {
+    messageApi.open({
+      type: 'loading',
+      content: text,
+      duration: 0,
+    });
+    setTimeout(messageApi.destroy, 1500);
+  };
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/task/${data._id}`);
+      setNewData(response.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const updateStatusDone = (index) => {
     const taskId = data.tasks[index].taskId;
     axios
       .put(`${import.meta.env.VITE_API_URL}/update/task/${data._id}/${taskId}`)
       .then(() => {
-        navigation("/tugas");
+        toast("Menyetujui tugas...");
+        setTimeout(() => {
+          navigation("/tugas");
+        }, 2000)
       })
       .catch((err) => console.log("Error:", err));
   };
 
   const updateStatusPending = (index) => {
-    
     const taskId = data.tasks[index].taskId;
     axios
       .put(`${import.meta.env.VITE_API_URL}/delete/task/${data._id}/${taskId}`)
       .then(() => {
-        navigation("/tugas");
+        toast("Menolak tugas...");
+        setTimeout(() => {
+          navigation("/tugas");
+        }, 2000)
       })
       .catch((err) => console.log("Error:", err));
   };
-  
 
   const handleEdit = (index) => {
     setEditIndex(index);
@@ -104,9 +132,10 @@ const TaskDetail = () => {
 
   return (
     <>
+      {contextHolder}
       <Space className="title">
         <Title level={2} style={{ textAlign: "left", paddingTop: "0" }}>
-          {data.name}
+          {newData?.name}
         </Title>
         <Title
           level={5}
@@ -116,29 +145,28 @@ const TaskDetail = () => {
             opacity: "50%",
           }}
         >
-          {data.devision == "riset"
+          {newData?.devision == "riset"
             ? "Riset"
-            : data.devision == "produksi"
+            : newData?.devision == "produksi"
             ? "Produksi"
-            : data.devision == "keuangan"
+            : newData?.devision == "keuangan"
             ? "Keuangan"
-            : data.devision == "it"
+            : newData?.devision == "it"
             ? "IT"
-            : data.devision == "hubungan petani"
+            : newData?.devision == "hubungan petani"
             ? "Hubungan Petani"
-            : data.devision == "hubungan masyarakat"
+            : newData?.devision == "hubungan masyarakat"
             ? "Hubungan Masyarakat"
-            : data.devision == "pemasaran"
+            : newData?.devision == "pemasaran"
             ? "Pemasaran"
             : null}
         </Title>
       </Space>
-      {data.tasks.map((item, index) => (
+      {newData?.tasks.map((item, index) => (
         <Card
           key={index}
           type="inner"
-          title={item.description}
-          // extra={item.status == "done" ? <Tag color="green">Selesai</Tag> : <Tag color="red">Belum Selesai</Tag>}
+          title={item.description + " - " + item.dueTo.split("-").join("/")}
           extra={
             item.status === "done" ? (
               <Tag color="green">Selesai</Tag>
@@ -193,7 +221,6 @@ const TaskDetail = () => {
           )}
         </Card>
       ))}
-      {/* <button onClick={() => console.log(item)}>s</button> */}
     </>
   );
 };

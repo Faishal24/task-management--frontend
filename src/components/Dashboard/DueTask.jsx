@@ -11,7 +11,7 @@ const columns = [
     key: "name",
   },
   {
-    title: "Tenggat Waktu",
+    title: "Tanggal Pembuatan",
     dataIndex: "date",
     key: "date",
     render: (text) => <Tag color="red">{text}</Tag>,
@@ -84,7 +84,7 @@ const DueTask = () => {
         }}
       >
         <Title level={4} style={{ marginTop: "0px", fontWeight: "bold" }} onClick={test}>
-          Tugas mendatang
+          Tugas terlama
         </Title>
         {loading ? (
           <Skeleton active title={false} paragraph={{rows: 3}}/>
