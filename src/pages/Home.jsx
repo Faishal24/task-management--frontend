@@ -120,12 +120,13 @@ const Home = () => {
         </Header>
         <Content
           style={{
-            margin: "24px 16px",
-            padding: 24,
-            minHeight: 630,
+            // margin: "24px 16px",
+            // padding: 24,
+            // minHeight: 630,
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
           }}
+          className="my-6 mx-4 p-6 h-full overflow-y-scroll"
         >
           <Routes>
             <Route path="/" element={<Dashboard />} />

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Button, ConfigProvider, Flex, List, Table, Typography } from "antd";
 import {
   CheckOutlined,
@@ -39,55 +39,70 @@ const Report = () => {
   };
 
   const columns = [
+    // USER & DIVISION
     {
       title: "Nama Karyawan",
       dataIndex: "name",
       key: "name",
+      // fixed: "left",
+      render: (text) => <Text>{text || "-"}</Text>,
     },
     {
-      title: "Tugas",
+      title: "Divisi",
+      dataIndex: "devision",
+      key: "devision",
+      render: (text) => <Text>{text ? toCamelCase(text) : "-"}</Text>,
+    },
+  
+    // TASK DETAILS
+    {
+      title: "Judul Tugas",
       dataIndex: "tasks",
       key: "tasks",
       render: (text) => (
         <List
-          size="middle"
-          dataSource={text}
+          size="small"
+          dataSource={text || []}
           renderItem={(item, index) => (
-            <List.Item>
-              {index + 1}. {item}
-            </List.Item>
+            <List.Item>{index + 1}. {item || "-"}</List.Item>
           )}
         />
       ),
     },
     {
-      title: "Status",
-      dataIndex: "tasksStatus",
-      key: "tasksStatus",
+      title: "Deskripsi",
+      dataIndex: "taskDescriptions",
+      key: "taskDescriptions",
       render: (text) => (
-        <>
-          <List
-            size="middle"
-            dataSource={text}
-            renderItem={(item, index) => (
-              <List.Item>
-                {item == "done" ? (
-                  <>
-                    <CheckOutlined /> <Text>Selesai</Text>
-                  </>
-                ) : item == "submitted" ? (
-                  <>
-                    <ClockCircleOutlined /> <Text>Diserahkan</Text>
-                  </>
-                ) : item == "pending" ? (
-                  <>
-                    <CloseOutlined /> <Text>Belum Selesai</Text>
-                  </>
-                ) : null}
-              </List.Item>
-            )}
-          />
-        </>
+        <List
+          size="small"
+          dataSource={text || []}
+          renderItem={(item) => <List.Item>{item || "-"}</List.Item>}
+        />
+      ),
+    },
+    {
+      title: "Prioritas",
+      dataIndex: "taskPriorities",
+      key: "taskPriorities",
+      render: (text) => (
+        <List
+          size="small"
+          dataSource={text || []}
+          renderItem={(item) => <List.Item>{item || "-"}</List.Item>}
+        />
+      ),
+    },
+    {
+      title: "Deadline",
+      dataIndex: "dueDate",
+      key: "dueDate",
+      render: (text) => (
+        <List
+          size="small"
+          dataSource={text || []}
+          renderItem={(item) => <List.Item>{item || "-"}</List.Item>}
+        />
       ),
     },
     {
@@ -96,32 +111,113 @@ const Report = () => {
       key: "createdAt",
       render: (text) => (
         <List
-          size="middle"
-          dataSource={text}
-          renderItem={(item) => <List.Item>{item}</List.Item>}
+          size="small"
+          dataSource={text || []}
+          renderItem={(item) => <List.Item>{item || "-"}</List.Item>}
         />
       ),
     },
+  
+    // TASK STATUS
     {
-      title: "Batas Akhir",
-      dataIndex: "dueDate",
-      key: "dueDate",
+      title: "Status Tugas",
+      dataIndex: "tasksStatus",
+      key: "tasksStatus",
       render: (text) => (
         <List
-          size="middle"
-          dataSource={text}
-          renderItem={(item) => <List.Item>{item}</List.Item>}
+          size="small"
+          dataSource={text || []}
+          renderItem={(item, idx) => (
+            <List.Item key={idx}>
+              {item === "done" ? <><CheckOutlined /> Selesai</> :
+               item === "submitted" ? <><ClockCircleOutlined /> Diserahkan</> :
+               item === "pending" ? <><CloseOutlined /> Belum Selesai</> :
+               "-"}
+            </List.Item>
+          )}
+        />
+      ),
+    },
+  
+    // TASK REPORT
+    {
+      title: "Tanggal Lapor",
+      dataIndex: "reportDates",
+      key: "reportDates",
+      render: (text) => (
+        <List
+          size="small"
+          dataSource={text || []}
+          renderItem={(item) => <List.Item>{item || "-"}</List.Item>}
         />
       ),
     },
     {
-      title: "Devisi",
-      dataIndex: "devision",
-      key: "devision",
-      render: (text) =>
-        text == "it" ? <Text>IT</Text> : <Text>{toCamelCase(text)}</Text>,
+      title: "Isi Laporan",
+      dataIndex: "reportTexts",
+      key: "reportTexts",
+      render: (text) => (
+        <List
+          size="small"
+          dataSource={text || []}
+          renderItem={(item) => <List.Item>{item || "-"}</List.Item>}
+        />
+      ),
+    },
+    {
+      title: "Pelapor",
+      dataIndex: "reportedBy",
+      key: "reportedBy",
+      render: (text) => <Text>{text || "-"}</Text>,
+    },
+  
+    // TASK REVIEW
+    {
+      title: "Reviewer",
+      dataIndex: "reviewer",
+      key: "reviewer",
+      render: (text) => <Text>{text || "-"}</Text>,
+    },
+    {
+      title: "Komentar Review",
+      dataIndex: "reviewComments",
+      key: "reviewComments",
+      render: (text) => (
+        <List
+          size="small"
+          dataSource={text || []}
+          renderItem={(item) => <List.Item>{item || "-"}</List.Item>}
+        />
+      ),
+    },
+  
+    // TASK ATTACHMENT
+    {
+      title: "Nama File",
+      dataIndex: "fileNames",
+      key: "fileNames",
+      render: (text) => (
+        <List
+          size="small"
+          dataSource={text || []}
+          renderItem={(item) => <List.Item>{item || "-"}</List.Item>}
+        />
+      ),
+    },
+    {
+      title: "Tanggal Upload",
+      dataIndex: "uploadDates",
+      key: "uploadDates",
+      render: (text) => (
+        <List
+          size="small"
+          dataSource={text || []}
+          renderItem={(item) => <List.Item>{item || "-"}</List.Item>}
+        />
+      ),
     },
   ];
+  
 
   useEffect(() => {
     axios
@@ -172,6 +268,7 @@ const Report = () => {
             columns={columns}
             pagination={false}
             bordered
+            scroll={{ x: 2800 }}
           />
         </ConfigProvider>
       </div>

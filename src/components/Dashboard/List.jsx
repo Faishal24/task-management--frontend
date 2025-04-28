@@ -78,14 +78,13 @@ const List = () => {
   };
 
   return (
-    <div className="tugasKanan">
+    <div className="tugasKanan ms-8.5">
       <Card
-        className="cardTugasKanan"
+        className="cardTugasKanan overflow-y-scroll"
         style={{
           width: "21em",
           minHeight: "500px",
           maxHeight: "500px",
-          overflow: "auto",
         }}
         defaultActiveTabKey="total"
         tabList={tabListNoTitle}

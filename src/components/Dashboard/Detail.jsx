@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Typography, Card, Statistic } from "antd";
 import {
   ClockCircleOutlined,
@@ -59,8 +59,8 @@ const Detail = () => {
   const formatter = (value) => <CountUp end={value} separator="," />;
 
   return (
-    <div className="tugasKiri">
-      <div className="cardDetail">
+    <div className="flex flex-col justify-between w-full">
+      <div className="flex w-full justify-between">
         <Card style={{ minWidth: "290px", maxHeight: "170px" }}>
           <RiseOutlined style={{ fontSize: "1.5em" }} />
           <Title level={4} style={{ marginTop: "10px", fontWeight: "bold" }}>
